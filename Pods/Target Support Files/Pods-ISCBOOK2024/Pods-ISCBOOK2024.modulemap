@@ -1,0 +1,6 @@
+framework module Pods_ISCBOOK2024 {
+  umbrella header "Pods-ISCBOOK2024-umbrella.h"
+
+  export *
+  module * { export * }
+}
