@@ -12,6 +12,7 @@
 		B5720EE42CAE538D001EEDF2 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B5720EE32CAE538D001EEDF2 /* Assets.xcassets */; };
 		B5720EE72CAE538D001EEDF2 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B5720EE62CAE538D001EEDF2 /* Preview Assets.xcassets */; };
 		B5720EF02CAEB07F001EEDF2 /* StartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5720EEF2CAEB07F001EEDF2 /* StartView.swift */; };
+		B5720EF42CB277F6001EEDF2 /* CameraView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5720EF32CB277F6001EEDF2 /* CameraView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -22,6 +23,7 @@
 		B5720EE32CAE538D001EEDF2 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		B5720EE62CAE538D001EEDF2 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		B5720EEF2CAEB07F001EEDF2 /* StartView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StartView.swift; sourceTree = "<group>"; };
+		B5720EF32CB277F6001EEDF2 /* CameraView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraView.swift; sourceTree = "<group>"; };
 		C8F641C3E462E6165DC7238B /* Pods_ISCBOOK2024.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ISCBOOK2024.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -111,6 +113,7 @@
 		B5720EF22CB272DB001EEDF2 /* CameraScreen */ = {
 			isa = PBXGroup;
 			children = (
+				B5720EF32CB277F6001EEDF2 /* CameraView.swift */,
 			);
 			path = CameraScreen;
 			sourceTree = "<group>";
@@ -229,6 +232,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B5720EF42CB277F6001EEDF2 /* CameraView.swift in Sources */,
 				B5720EF02CAEB07F001EEDF2 /* StartView.swift in Sources */,
 				B5720EE02CAE538A001EEDF2 /* ISCBOOK2024App.swift in Sources */,
 			);
