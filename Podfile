@@ -6,6 +6,10 @@ target 'ISCBOOK2024' do
   use_frameworks!
 
   # Pods for ISCBOOK2024
+pod 'FirebaseAuth'
+pod 'FirebaseFirestore'
+pod 'FirebaseStorage'
+pod 'FirebaseUI/Storage'
 pod 'Alamofire', '~> 5.0'
 
 end
@@ -20,3 +24,10 @@ post_install do |installer|
     end
   end
 end
+
+plugin 'cocoapods-keys', {
+  :project => "ISCBOOK2024",
+  :keys => [
+    "GoogleBooksAPIKey"
+  ]
+}
