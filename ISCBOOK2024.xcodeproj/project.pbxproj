@@ -8,22 +8,46 @@
 
 /* Begin PBXBuildFile section */
 		69B81F94F00935AA5F71D04C /* Pods_ISCBOOK2024.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C8F641C3E462E6165DC7238B /* Pods_ISCBOOK2024.framework */; };
+		B5336A7E2CB4FEBA00A1F157 /* GoogleBooksAPIClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5336A7D2CB4FEBA00A1F157 /* GoogleBooksAPIClient.swift */; };
 		B5720EE02CAE538A001EEDF2 /* ISCBOOK2024App.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5720EDF2CAE538A001EEDF2 /* ISCBOOK2024App.swift */; };
 		B5720EE42CAE538D001EEDF2 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B5720EE32CAE538D001EEDF2 /* Assets.xcassets */; };
 		B5720EE72CAE538D001EEDF2 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B5720EE62CAE538D001EEDF2 /* Preview Assets.xcassets */; };
 		B5720EF02CAEB07F001EEDF2 /* StartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5720EEF2CAEB07F001EEDF2 /* StartView.swift */; };
 		B5720EF42CB277F6001EEDF2 /* CameraView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5720EF32CB277F6001EEDF2 /* CameraView.swift */; };
+		B5720EF62CB2789C001EEDF2 /* Scanner.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5720EF52CB2789C001EEDF2 /* Scanner.swift */; };
+		B5720EF92CB279A6001EEDF2 /* ScannerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5720EF82CB279A6001EEDF2 /* ScannerViewController.swift */; };
+		B5720EFB2CB2B935001EEDF2 /* CameraOverlay.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5720EFA2CB2B935001EEDF2 /* CameraOverlay.swift */; };
+		B5D0AA982CB5093300EE9932 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = B5D0AA972CB5093300EE9932 /* GoogleService-Info.plist */; };
+		B5D0AA9A2CB50A2800EE9932 /* Book.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5D0AA992CB50A2800EE9932 /* Book.swift */; };
+		B5D0AA9D2CB50E4800EE9932 /* BookView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5D0AA9C2CB50E4800EE9932 /* BookView.swift */; };
+		B5DDA60D2CB7DE80007D1F30 /* FirebaseClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5DDA60C2CB7DE80007D1F30 /* FirebaseClient.swift */; };
+		B5EB6AC02CBB9F7600EC6196 /* AddBookView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5EB6ABF2CBB9F7600EC6196 /* AddBookView.swift */; };
+		B5EB6AC22CBBB61F00EC6196 /* FelicaReaderViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5EB6AC12CBBB61F00EC6196 /* FelicaReaderViewController.swift */; };
+		B5EB6AC52CC2135E00EC6196 /* FelicaScanView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5EB6AC42CC2135E00EC6196 /* FelicaScanView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		31F31EBBA8BA97230C571951 /* Pods-ISCBOOK2024.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ISCBOOK2024.release.xcconfig"; path = "Target Support Files/Pods-ISCBOOK2024/Pods-ISCBOOK2024.release.xcconfig"; sourceTree = "<group>"; };
 		74929DC0488A9AAC54E309A3 /* Pods-ISCBOOK2024.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ISCBOOK2024.debug.xcconfig"; path = "Target Support Files/Pods-ISCBOOK2024/Pods-ISCBOOK2024.debug.xcconfig"; sourceTree = "<group>"; };
+		B5336A7D2CB4FEBA00A1F157 /* GoogleBooksAPIClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoogleBooksAPIClient.swift; sourceTree = "<group>"; };
 		B5720EDC2CAE538A001EEDF2 /* ISCBOOK2024.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ISCBOOK2024.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B5720EDF2CAE538A001EEDF2 /* ISCBOOK2024App.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ISCBOOK2024App.swift; sourceTree = "<group>"; };
 		B5720EE32CAE538D001EEDF2 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		B5720EE62CAE538D001EEDF2 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		B5720EEF2CAEB07F001EEDF2 /* StartView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StartView.swift; sourceTree = "<group>"; };
 		B5720EF32CB277F6001EEDF2 /* CameraView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraView.swift; sourceTree = "<group>"; };
+		B5720EF52CB2789C001EEDF2 /* Scanner.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Scanner.swift; sourceTree = "<group>"; };
+		B5720EF82CB279A6001EEDF2 /* ScannerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScannerViewController.swift; sourceTree = "<group>"; };
+		B5720EFA2CB2B935001EEDF2 /* CameraOverlay.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraOverlay.swift; sourceTree = "<group>"; };
+		B5D0AA962CB508EB00EE9932 /* GoogleService-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "/Users/gomichan/ISCBOOK2024/GoogleService-Info.plist"; sourceTree = "<absolute>"; };
+		B5D0AA972CB5093300EE9932 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		B5D0AA992CB50A2800EE9932 /* Book.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Book.swift; sourceTree = "<group>"; };
+		B5D0AA9C2CB50E4800EE9932 /* BookView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookView.swift; sourceTree = "<group>"; };
+		B5DDA60C2CB7DE80007D1F30 /* FirebaseClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseClient.swift; sourceTree = "<group>"; };
+		B5EB6ABF2CBB9F7600EC6196 /* AddBookView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddBookView.swift; sourceTree = "<group>"; };
+		B5EB6AC12CBBB61F00EC6196 /* FelicaReaderViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FelicaReaderViewController.swift; sourceTree = "<group>"; };
+		B5EB6AC42CC2135E00EC6196 /* FelicaScanView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FelicaScanView.swift; sourceTree = "<group>"; };
+		B5EB6AC62CC255D600EC6196 /* ISCBOOK2024.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = ISCBOOK2024.entitlements; sourceTree = "<group>"; };
 		C8F641C3E462E6165DC7238B /* Pods_ISCBOOK2024.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ISCBOOK2024.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -42,6 +66,7 @@
 		2220EB127B232696A10F6CD3 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				B5D0AA962CB508EB00EE9932 /* GoogleService-Info.plist */,
 				C8F641C3E462E6165DC7238B /* Pods_ISCBOOK2024.framework */,
 			);
 			name = Frameworks;
@@ -56,10 +81,29 @@
 			path = Pods;
 			sourceTree = "<group>";
 		};
+		B5336A792CB4FCA600A1F157 /* Infrastructure */ = {
+			isa = PBXGroup;
+			children = (
+				B5336A7A2CB4FCF300A1F157 /* Models */,
+				B5336A7D2CB4FEBA00A1F157 /* GoogleBooksAPIClient.swift */,
+				B5DDA60C2CB7DE80007D1F30 /* FirebaseClient.swift */,
+			);
+			path = Infrastructure;
+			sourceTree = "<group>";
+		};
+		B5336A7A2CB4FCF300A1F157 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				B5D0AA992CB50A2800EE9932 /* Book.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
 		B5720ED32CAE538A001EEDF2 = {
 			isa = PBXGroup;
 			children = (
 				B5720EDE2CAE538A001EEDF2 /* ISCBOOK2024 */,
+				B5D0AA972CB5093300EE9932 /* GoogleService-Info.plist */,
 				B5720EDD2CAE538A001EEDF2 /* Products */,
 				6D52CC53B22FE07CCE1D447C /* Pods */,
 				2220EB127B232696A10F6CD3 /* Frameworks */,
@@ -79,8 +123,11 @@
 			children = (
 				B5720EDF2CAE538A001EEDF2 /* ISCBOOK2024App.swift */,
 				B5720EED2CAE5406001EEDF2 /* UI */,
+				B5720EF72CB278F3001EEDF2 /* Domain */,
+				B5336A792CB4FCA600A1F157 /* Infrastructure */,
 				B5720EE32CAE538D001EEDF2 /* Assets.xcassets */,
 				B5720EE52CAE538D001EEDF2 /* Preview Content */,
+				B5EB6AC62CC255D600EC6196 /* ISCBOOK2024.entitlements */,
 			);
 			path = ISCBOOK2024;
 			sourceTree = "<group>";
@@ -98,6 +145,9 @@
 			children = (
 				B5720EEE2CAEB038001EEDF2 /* StartScreen */,
 				B5720EF22CB272DB001EEDF2 /* CameraScreen */,
+				B5D0AA9B2CB50E1B00EE9932 /* BookScreen */,
+				B5EB6ABE2CBB9F0F00EC6196 /* AddBookScreen */,
+				B5EB6AC32CC2130300EC6196 /* FelicaScanScreen */,
 			);
 			path = UI;
 			sourceTree = "<group>";
@@ -114,8 +164,43 @@
 			isa = PBXGroup;
 			children = (
 				B5720EF32CB277F6001EEDF2 /* CameraView.swift */,
+				B5720EF52CB2789C001EEDF2 /* Scanner.swift */,
+				B5720EFA2CB2B935001EEDF2 /* CameraOverlay.swift */,
 			);
 			path = CameraScreen;
+			sourceTree = "<group>";
+		};
+		B5720EF72CB278F3001EEDF2 /* Domain */ = {
+			isa = PBXGroup;
+			children = (
+				B5720EF82CB279A6001EEDF2 /* ScannerViewController.swift */,
+				B5EB6AC12CBBB61F00EC6196 /* FelicaReaderViewController.swift */,
+			);
+			path = Domain;
+			sourceTree = "<group>";
+		};
+		B5D0AA9B2CB50E1B00EE9932 /* BookScreen */ = {
+			isa = PBXGroup;
+			children = (
+				B5D0AA9C2CB50E4800EE9932 /* BookView.swift */,
+			);
+			path = BookScreen;
+			sourceTree = "<group>";
+		};
+		B5EB6ABE2CBB9F0F00EC6196 /* AddBookScreen */ = {
+			isa = PBXGroup;
+			children = (
+				B5EB6ABF2CBB9F7600EC6196 /* AddBookView.swift */,
+			);
+			path = AddBookScreen;
+			sourceTree = "<group>";
+		};
+		B5EB6AC32CC2130300EC6196 /* FelicaScanScreen */ = {
+			isa = PBXGroup;
+			children = (
+				B5EB6AC42CC2135E00EC6196 /* FelicaScanView.swift */,
+			);
+			path = FelicaScanScreen;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -180,6 +265,7 @@
 			files = (
 				B5720EE72CAE538D001EEDF2 /* Preview Assets.xcassets in Resources */,
 				B5720EE42CAE538D001EEDF2 /* Assets.xcassets in Resources */,
+				B5D0AA982CB5093300EE9932 /* GoogleService-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -232,9 +318,19 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B5D0AA9D2CB50E4800EE9932 /* BookView.swift in Sources */,
+				B5D0AA9A2CB50A2800EE9932 /* Book.swift in Sources */,
+				B5720EF62CB2789C001EEDF2 /* Scanner.swift in Sources */,
 				B5720EF42CB277F6001EEDF2 /* CameraView.swift in Sources */,
 				B5720EF02CAEB07F001EEDF2 /* StartView.swift in Sources */,
+				B5336A7E2CB4FEBA00A1F157 /* GoogleBooksAPIClient.swift in Sources */,
+				B5EB6AC52CC2135E00EC6196 /* FelicaScanView.swift in Sources */,
+				B5720EF92CB279A6001EEDF2 /* ScannerViewController.swift in Sources */,
+				B5EB6AC02CBB9F7600EC6196 /* AddBookView.swift in Sources */,
+				B5DDA60D2CB7DE80007D1F30 /* FirebaseClient.swift in Sources */,
 				B5720EE02CAE538A001EEDF2 /* ISCBOOK2024App.swift in Sources */,
+				B5EB6AC22CBBB61F00EC6196 /* FelicaReaderViewController.swift in Sources */,
+				B5720EFB2CB2B935001EEDF2 /* CameraOverlay.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -369,10 +465,14 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"ISCBOOK2024/Preview Content\"";
-				DEVELOPMENT_TEAM = 274CZPH4P8;
+				DEVELOPMENT_TEAM = F62Z5CJCVQ;
 				ENABLE_PREVIEWS = YES;
 				ENABLE_USER_SCRIPT_SANDBOXING = NO;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = ISCBOOK2024/Info.plist;
+				INFOPLIST_KEY_NFCReaderUsageDescription = "このアプリはNFCタグのスキャンを行います。";
+				INFOPLIST_KEY_NSCameraUsageDescription = "バーコードをスキャンするためにカメラを使用します。";
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -400,10 +500,14 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"ISCBOOK2024/Preview Content\"";
-				DEVELOPMENT_TEAM = 274CZPH4P8;
+				DEVELOPMENT_TEAM = F62Z5CJCVQ;
 				ENABLE_PREVIEWS = YES;
 				ENABLE_USER_SCRIPT_SANDBOXING = NO;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = ISCBOOK2024/Info.plist;
+				INFOPLIST_KEY_NFCReaderUsageDescription = "このアプリはNFCタグのスキャンを行います。";
+				INFOPLIST_KEY_NSCameraUsageDescription = "バーコードをスキャンするためにカメラを使用します。";
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;

@@ -8,8 +8,27 @@
 import SwiftUI
 
 struct CameraView: View {
+    
+    @State private var scannedCode: String?
+    
+    @State var isBorrowing: Bool?
+    
+    @Environment(\.dismiss) var dismiss
+    
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        ZStack {
+            if let code = scannedCode, code.starts(with: "978")  {
+                BookView(scannedCode: $scannedCode, isBorrowing: $isBorrowing)
+                // AddBookView(scannedCode: $scannedCode)
+            } else {
+                Scanner(scannedCode: $scannedCode)
+                    .ignoresSafeArea()
+                CameraOverlay {
+                    dismiss()
+                }
+            }
+        }
+        .navigationBarBackButtonHidden(true)
     }
 }
 

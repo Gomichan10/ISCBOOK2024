@@ -10,18 +10,24 @@ import SwiftUI
 struct StartView: View {
     
     var body: some View {
-        GeometryReader{ geometry in
-            VStack {
-                
-                Spacer()
-                
-                LendingButton(geometry: geometry)
-                
-                ReturnButton(geometry: geometry)
-                
-                Spacer()
+        NavigationView {
+            GeometryReader{ geometry in
+                VStack {
+                    
+                    Spacer()
+                    
+                    NavigationLink(destination: CameraView(isBorrowing: false)) {
+                        LendingButton(geometry: geometry)
+                    }
+                    
+                    NavigationLink(destination: CameraView(isBorrowing: true)) {
+                        ReturnButton(geometry: geometry)
+                    }
+                    
+                    Spacer()
+                }
+                .frame(maxWidth: .infinity, maxHeight: .infinity)
             }
-            .frame(maxWidth: .infinity, maxHeight: .infinity)
         }
     }
 }
@@ -33,38 +39,30 @@ struct StartView: View {
 extension StartView {
     
     func LendingButton(geometry: GeometryProxy) -> some View {
-        Button(action: {
-            return
-        }, label: {
-            ZStack {
-                Rectangle()
-                    .foregroundColor(.red)
-                    .frame(width: geometry.size.width / 1.2, height: geometry.size.height / 2.5)
-                    .cornerRadius(10.0)
-                Text("貸出")
-                    .foregroundColor(.white)
-                    .font(.system(size: 50))
-                    .bold()
-            }
-        })
+        ZStack {
+            Rectangle()
+                .foregroundColor(.red)
+                .frame(width: geometry.size.width / 1.2, height: geometry.size.height / 2.5)
+                .cornerRadius(10.0)
+            Text("貸出")
+                .foregroundColor(.white)
+                .font(.system(size: 50))
+                .bold()
+        }
         .padding()
     }
     
     func ReturnButton(geometry: GeometryProxy) -> some View {
-        Button(action: {
-            return
-        }, label: {
-            ZStack {
-                Rectangle()
-                    .foregroundColor(.blue)
-                    .frame(width: geometry.size.width / 1.2, height: geometry.size.height / 2.5)
-                    .cornerRadius(10.0)
-                Text("返却")
-                    .foregroundColor(.white)
-                    .font(.system(size: 50))
-                    .bold()
-            }
-        })
+        ZStack {
+            Rectangle()
+                .foregroundColor(.blue)
+                .frame(width: geometry.size.width / 1.2, height: geometry.size.height / 2.5)
+                .cornerRadius(10.0)
+            Text("返却")
+                .foregroundColor(.white)
+                .font(.system(size: 50))
+                .bold()
+        }
         .padding()
     }
 }

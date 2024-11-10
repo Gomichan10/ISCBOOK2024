@@ -9,7 +9,7 @@ import Foundation
 import SwiftUI
 import AVFoundation
 
-struct ScannerView: UIViewControllerRepresentable {
+struct Scanner: UIViewControllerRepresentable {
     @Binding var scannedCode: String?
     
     func makeCoordinator() -> Coordinator {
