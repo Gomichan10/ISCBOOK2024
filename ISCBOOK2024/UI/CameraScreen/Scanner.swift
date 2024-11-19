@@ -1,5 +1,5 @@
 //
-//  BarcodeScannerView.swift
+//  ScannerViewController.swift
 //  ISCBOOK2024
 //
 //  Created by Gomi Kouki on 2024/10/06.
@@ -9,35 +9,46 @@ import Foundation
 import SwiftUI
 import AVFoundation
 
-struct Scanner: UIViewControllerRepresentable {
-    @Binding var scannedCode: String?
+class ScannerViewController: UIViewController {
+    var captureSession: AVCaptureSession!
+    var previewLayer: AVCaptureVideoPreviewLayer!
+    var delegate: AVCaptureMetadataOutputObjectsDelegate?
     
-    func makeCoordinator() -> Coordinator {
-        return Coordinator(scannedCode: $scannedCode)
-    }
-    
-    func makeUIViewController(context: Context) -> some UIViewController {
-        let viewController = ScannerViewController()
-        viewController.delegate = context.coordinator
-        return viewController
-    }
-    
-    func updateUIViewController(_ uiViewController: UIViewControllerType, context: Context) {}
-    
-    class Coordinator: NSObject, AVCaptureMetadataOutputObjectsDelegate {
-        @Binding var scannedCode: String?
+    override func viewDidLoad() {
         
-        init(scannedCode: Binding<String?>) {
-            _scannedCode = scannedCode
+        captureSession = AVCaptureSession()
+        
+        guard let videoCaptureDevice = AVCaptureDevice.default(for: .video) else { return }
+        let videoInput: AVCaptureDeviceInput
+        
+        do {
+            videoInput = try AVCaptureDeviceInput(device: videoCaptureDevice)
+        } catch {
+            return
         }
         
-        func metadataOutput(_ output: AVCaptureMetadataOutput, didOutput metadataObjects: [AVMetadataObject], from connection: AVCaptureConnection) {
-            if let metadataObject = metadataObjects.first {
-                guard let readableObject = metadataObject as? AVMetadataMachineReadableCodeObject else { return }
-                if let stringValue = readableObject.stringValue {
-                    scannedCode = stringValue
-                }
-            }
+        if (captureSession.canAddInput(videoInput)) {
+            captureSession.addInput(videoInput)
+        } else {
+            return
         }
+        
+        let metadataOutput = AVCaptureMetadataOutput()
+        
+        if (captureSession.canAddOutput(metadataOutput)) {
+            captureSession.addOutput(metadataOutput)
+            
+            metadataOutput.setMetadataObjectsDelegate(delegate, queue: DispatchQueue.main)
+            metadataOutput.metadataObjectTypes = [.ean13]
+        } else {
+            return
+        }
+        
+        previewLayer = AVCaptureVideoPreviewLayer(session: captureSession)
+        previewLayer.frame = view.layer.bounds
+        previewLayer.videoGravity = .resizeAspectFill
+        view.layer.addSublayer(previewLayer)
+        
+        captureSession.startRunning()
     }
 }

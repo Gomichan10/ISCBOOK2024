@@ -23,7 +23,7 @@ struct ISCBOOK2024App: App {
     
     var body: some Scene {
         WindowGroup {
-            FelicaScanView()
+            StartView()
         }
     }
 }
