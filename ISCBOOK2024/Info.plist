@@ -11,7 +11,7 @@
 	</dict>
 	<key>com.apple.developer.nfc.readersession.felica.systemcodes</key>
 	<array>
-		<string>12FC</string>
+		<string>88B4</string>
 	</array>
 </dict>
 </plist>

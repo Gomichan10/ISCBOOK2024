@@ -21,7 +21,7 @@ struct CameraView: View {
                 BookView(scannedCode: $scannedCode, isBorrowing: $isBorrowing)
                 // AddBookView(scannedCode: $scannedCode)
             } else {
-                Scanner(scannedCode: $scannedCode)
+                ScannerView(scannedCode: $scannedCode)
                     .ignoresSafeArea()
                 CameraOverlay {
                     dismiss()

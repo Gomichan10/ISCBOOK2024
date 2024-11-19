@@ -13,12 +13,17 @@ struct BookView: View {
     @State private var isExpanded: Bool = false
     @State private var isShowAlert: Bool = false
     @State var isLoading: Bool = false
+    @State var isShowSheet: Bool = false
+    @State var book: BookResponse?
+    @State var reviewAverageInt: Int = 0
     @Binding var scannedCode: String?
     @Binding var isBorrowing: Bool?
     
+    @StateObject var felicaReader = FelicaReader()
+    @StateObject var bookViewModel = BookViewModel()
+    
     @Environment(\.dismiss) var dismiss
     
-    @State var book: Book = Book(kind: "", totalItems: 0, items: [])
     
     var body: some View {
         VStack {
@@ -30,13 +35,17 @@ struct BookView: View {
                             case true:
                                 isShowAlert = true
                             case false:
-                                GoogleBooksAPIClient().getBookInfo(isbn: code) { result in
-                                    switch result {
-                                    case .success(let bookResponse):
-                                        book = bookResponse
-                                        isLoading = true
-                                    case .failure(let error):
-                                        print(error)
+                                Task {
+                                    do {
+                                        book = try await fetchBook(isbn: code)
+                                        if let reviewAverageString = book?.Items.first?.Item.reviewAverage,
+                                           let reviewAverageDouble = Double(reviewAverageString) {
+                                            // 小数点を切り捨てて整数化
+                                            reviewAverageInt = Int(reviewAverageDouble)
+                                        }
+                                        isLoading.toggle()
+                                    } catch {
+                                        print("Error: \(error)")
                                     }
                                 }
                             }
@@ -58,6 +67,12 @@ struct BookView: View {
         } message: {
             Text("図書コーナーにある本を借りてください")
         }
+        .sheet(isPresented: $isShowSheet) {
+            VStack {
+                BorrowSheet(book: $book, isShowSheet: $isShowSheet, bookViewModel: bookViewModel, felicaReader: felicaReader)
+            }
+            .presentationDetents([.medium])
+        }
     }
 }
 
@@ -68,19 +83,26 @@ extension BookView {
         ScrollView {
             VStack (alignment: .leading) {
                 ZStack {
-                    if let imageUrlString = book.items.first?.volumeInfo.imageLinks?.thumbnail,
+                    if let imageUrlString = book?.Items.first?.Item.largeImageUrl,
                        let imageUrl = URL(string: imageUrlString) {
-                        AsyncImage(url: imageUrl) { image in
-                            image
-                                .resizable()
-                                .aspectRatio(contentMode: .fit)
-                                .frame(width: 225)
-                                .shadow(radius: 8)
-                                .padding(.top, 10)
-                        } placeholder: {
-                            Image(systemName: "book.fill")
-                                .resizable()
-                                .frame(width: 200, height: 150)
+                        AsyncImage(url: imageUrl) { phase in
+                            switch phase {
+                            case .empty:
+                                ProgressView()
+                            case .success(let image):
+                                image
+                                    .resizable()
+                                    .aspectRatio(contentMode: .fit)
+                                    .frame(width: 225)
+                                    .shadow(radius: 8)
+                                    .padding(.top, 10)
+                            case .failure:
+                                Image(systemName: "book.fill")
+                                    .resizable()
+                                    .frame(width: 200, height: 150)
+                            @unknown default:
+                                EmptyView()
+                            }
                         }
                     } else {
                         Image(systemName: "book.fill")
@@ -93,50 +115,50 @@ extension BookView {
                 .background(Color.gray.opacity(0.7))
                 Spacer()
                 VStack (){
-                    Text(book.items.first?.volumeInfo.authors?.first ?? "")
+                    Text(book?.Items.first?.Item.author ?? "")
                         .frame(maxWidth: .infinity, alignment: .leading)
                         .foregroundColor(.gray)
                         .bold()
                     
-                    Text(book.items.first?.volumeInfo.title ?? "")
+                    Text(book?.Items.first?.Item.title ?? "")
                         .frame(maxWidth: .infinity, alignment: .leading)
                         .bold()
                     
                     Spacer()
                         .frame(height: 10)
                     
-                    switch Int(book.items.first?.volumeInfo.averageRating ?? 0) {
+                    switch reviewAverageInt {
                     case 0:
-                        Text("☆☆☆☆☆(\(book.items.first?.volumeInfo.ratingsCount ?? 0))")
+                        Text("☆☆☆☆☆(\(book?.Items.first?.Item.reviewCount ?? 0))")
                             .frame(maxWidth: .infinity, alignment: .leading)
                             .bold()
                             .font(.system(size: 15.0))
                             .padding(.vertical, 4)
                     case 1:
-                        Text("★☆☆☆☆(\(book.items.first?.volumeInfo.ratingsCount ?? 0))")
+                        Text("★☆☆☆☆(\(book?.Items.first?.Item.reviewCount ?? 0))")
                             .frame(maxWidth: .infinity, alignment: .leading)
                             .bold()
                             .font(.system(size: 15.0))
                             .padding(.vertical)
                     case 2:
-                        Text("★★☆☆☆(\(book.items.first?.volumeInfo.ratingsCount ?? 0))")
+                        Text("★★☆☆☆(\(book?.Items.first?.Item.reviewCount ?? 0))")
                             .frame(maxWidth: .infinity, alignment: .leading)
                             .bold()
                             .font(.system(size: 15.0))
                             .padding(.vertical)
                     case 3:
-                        Text("★★★☆☆(\(book.items.first?.volumeInfo.ratingsCount ?? 0))")
+                        Text("★★★☆☆(\(book?.Items.first?.Item.reviewCount ?? 0))")
                             .frame(maxWidth: .infinity, alignment: .leading)
                             .bold()
                             .font(.system(size: 15.0))
                     case 4:
-                        Text("★★★★☆(\(book.items.first?.volumeInfo.ratingsCount ?? 0))")
+                        Text("★★★★☆(\(book?.Items.first?.Item.reviewCount ?? 0))")
                             .frame(maxWidth: .infinity, alignment: .leading)
                             .bold()
                             .font(.system(size: 15.0))
                             .padding(.vertical)
                     case 5:
-                        Text("★★★★★(\(book.items.first?.volumeInfo.ratingsCount ?? 0))")
+                        Text("★★★★★(\(book?.Items.first?.Item.reviewCount ?? 0))")
                             .frame(maxWidth: .infinity, alignment: .leading)
                             .bold()
                             .font(.system(size: 15.0))
@@ -178,7 +200,7 @@ extension BookView {
                     
                     // isExpandedがtrueのときに表示されるテキスト
                     if isExpanded {
-                        Text(book.items.first?.volumeInfo.description ?? "本の詳細がありません")
+                        Text(book?.Items.first?.Item.itemCaption ?? "本の詳細がありません")
                             .padding()
                             .transition(.opacity)
                     }
@@ -213,11 +235,14 @@ extension BookView {
             
             if !(isBorrowing ?? false) {
                 Button {
-                    return
+                    if isLoading {
+                        felicaReader.beginScanning()
+                    }
                 } label: {
                     ZStack {
                         Rectangle()
                             .frame(width: 280, height: 55)
+                            .foregroundColor(isLoading ? .blue : .gray)
                             .cornerRadius(8.0)
                         Text("本を借りる")
                             .foregroundColor(.white)
@@ -226,6 +251,14 @@ extension BookView {
                     }
                     .padding(.vertical)
                     .padding(.bottom, 10)
+                }
+                .onChange(of: felicaReader.idm) {
+                    if !felicaReader.idm.isEmpty {
+                        Task {
+                            await bookViewModel.fetchStudentInfo(idm: felicaReader.idm)
+                            isShowSheet.toggle()
+                        }
+                    }
                 }
             } else {
                 Button {

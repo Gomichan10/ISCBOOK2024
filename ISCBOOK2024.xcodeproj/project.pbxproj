@@ -7,48 +7,57 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		69B81F94F00935AA5F71D04C /* Pods_ISCBOOK2024.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C8F641C3E462E6165DC7238B /* Pods_ISCBOOK2024.framework */; };
-		B5336A7E2CB4FEBA00A1F157 /* GoogleBooksAPIClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5336A7D2CB4FEBA00A1F157 /* GoogleBooksAPIClient.swift */; };
 		B5720EE02CAE538A001EEDF2 /* ISCBOOK2024App.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5720EDF2CAE538A001EEDF2 /* ISCBOOK2024App.swift */; };
 		B5720EE42CAE538D001EEDF2 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B5720EE32CAE538D001EEDF2 /* Assets.xcassets */; };
 		B5720EE72CAE538D001EEDF2 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B5720EE62CAE538D001EEDF2 /* Preview Assets.xcassets */; };
 		B5720EF02CAEB07F001EEDF2 /* StartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5720EEF2CAEB07F001EEDF2 /* StartView.swift */; };
 		B5720EF42CB277F6001EEDF2 /* CameraView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5720EF32CB277F6001EEDF2 /* CameraView.swift */; };
-		B5720EF62CB2789C001EEDF2 /* Scanner.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5720EF52CB2789C001EEDF2 /* Scanner.swift */; };
-		B5720EF92CB279A6001EEDF2 /* ScannerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5720EF82CB279A6001EEDF2 /* ScannerViewController.swift */; };
+		B5720EF62CB2789C001EEDF2 /* ScannerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5720EF52CB2789C001EEDF2 /* ScannerView.swift */; };
+		B5720EF92CB279A6001EEDF2 /* Scanner.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5720EF82CB279A6001EEDF2 /* Scanner.swift */; };
 		B5720EFB2CB2B935001EEDF2 /* CameraOverlay.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5720EFA2CB2B935001EEDF2 /* CameraOverlay.swift */; };
 		B5D0AA982CB5093300EE9932 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = B5D0AA972CB5093300EE9932 /* GoogleService-Info.plist */; };
-		B5D0AA9A2CB50A2800EE9932 /* Book.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5D0AA992CB50A2800EE9932 /* Book.swift */; };
 		B5D0AA9D2CB50E4800EE9932 /* BookView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5D0AA9C2CB50E4800EE9932 /* BookView.swift */; };
 		B5DDA60D2CB7DE80007D1F30 /* FirebaseClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5DDA60C2CB7DE80007D1F30 /* FirebaseClient.swift */; };
 		B5EB6AC02CBB9F7600EC6196 /* AddBookView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5EB6ABF2CBB9F7600EC6196 /* AddBookView.swift */; };
-		B5EB6AC22CBBB61F00EC6196 /* FelicaReaderViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5EB6AC12CBBB61F00EC6196 /* FelicaReaderViewController.swift */; };
+		B5EB6AC22CBBB61F00EC6196 /* FelicaReader.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5EB6AC12CBBB61F00EC6196 /* FelicaReader.swift */; };
 		B5EB6AC52CC2135E00EC6196 /* FelicaScanView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5EB6AC42CC2135E00EC6196 /* FelicaScanView.swift */; };
+		BDA603C72CE36B06002F77B3 /* Student.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDA603C62CE36B06002F77B3 /* Student.swift */; };
+		BDA603C92CE36C65002F77B3 /* StudentAPIClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDA603C82CE36C65002F77B3 /* StudentAPIClient.swift */; };
+		BDA603CB2CE438BE002F77B3 /* BorrowSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDA603CA2CE438BE002F77B3 /* BorrowSheet.swift */; };
+		BDA603CF2CE5DD7C002F77B3 /* BookViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDA603CE2CE5DD7C002F77B3 /* BookViewModel.swift */; };
+		BDA6043E2CEB85F0002F77B3 /* BookResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDA6043D2CEB85F0002F77B3 /* BookResponse.swift */; };
+		BDA604402CEB86D3002F77B3 /* BookSearchAPIClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDA6043F2CEB86D3002F77B3 /* BookSearchAPIClient.swift */; };
+		F9AF5A753271F4687A29BFFF /* Pods_ISCBOOK2024.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 79A8A4DEF105E769515427D4 /* Pods_ISCBOOK2024.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		31F31EBBA8BA97230C571951 /* Pods-ISCBOOK2024.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ISCBOOK2024.release.xcconfig"; path = "Target Support Files/Pods-ISCBOOK2024/Pods-ISCBOOK2024.release.xcconfig"; sourceTree = "<group>"; };
-		74929DC0488A9AAC54E309A3 /* Pods-ISCBOOK2024.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ISCBOOK2024.debug.xcconfig"; path = "Target Support Files/Pods-ISCBOOK2024/Pods-ISCBOOK2024.debug.xcconfig"; sourceTree = "<group>"; };
-		B5336A7D2CB4FEBA00A1F157 /* GoogleBooksAPIClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoogleBooksAPIClient.swift; sourceTree = "<group>"; };
+		79A8A4DEF105E769515427D4 /* Pods_ISCBOOK2024.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ISCBOOK2024.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		B079F6C9D77CC97074AD6681 /* Pods-ISCBOOK2024.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ISCBOOK2024.release.xcconfig"; path = "Target Support Files/Pods-ISCBOOK2024/Pods-ISCBOOK2024.release.xcconfig"; sourceTree = "<group>"; };
 		B5720EDC2CAE538A001EEDF2 /* ISCBOOK2024.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ISCBOOK2024.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B5720EDF2CAE538A001EEDF2 /* ISCBOOK2024App.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ISCBOOK2024App.swift; sourceTree = "<group>"; };
 		B5720EE32CAE538D001EEDF2 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		B5720EE62CAE538D001EEDF2 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		B5720EEF2CAEB07F001EEDF2 /* StartView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StartView.swift; sourceTree = "<group>"; };
 		B5720EF32CB277F6001EEDF2 /* CameraView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraView.swift; sourceTree = "<group>"; };
-		B5720EF52CB2789C001EEDF2 /* Scanner.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Scanner.swift; sourceTree = "<group>"; };
-		B5720EF82CB279A6001EEDF2 /* ScannerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScannerViewController.swift; sourceTree = "<group>"; };
+		B5720EF52CB2789C001EEDF2 /* ScannerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScannerView.swift; sourceTree = "<group>"; };
+		B5720EF82CB279A6001EEDF2 /* Scanner.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Scanner.swift; sourceTree = "<group>"; };
 		B5720EFA2CB2B935001EEDF2 /* CameraOverlay.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraOverlay.swift; sourceTree = "<group>"; };
 		B5D0AA962CB508EB00EE9932 /* GoogleService-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "/Users/gomichan/ISCBOOK2024/GoogleService-Info.plist"; sourceTree = "<absolute>"; };
 		B5D0AA972CB5093300EE9932 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
-		B5D0AA992CB50A2800EE9932 /* Book.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Book.swift; sourceTree = "<group>"; };
 		B5D0AA9C2CB50E4800EE9932 /* BookView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookView.swift; sourceTree = "<group>"; };
 		B5DDA60C2CB7DE80007D1F30 /* FirebaseClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseClient.swift; sourceTree = "<group>"; };
 		B5EB6ABF2CBB9F7600EC6196 /* AddBookView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddBookView.swift; sourceTree = "<group>"; };
-		B5EB6AC12CBBB61F00EC6196 /* FelicaReaderViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FelicaReaderViewController.swift; sourceTree = "<group>"; };
+		B5EB6AC12CBBB61F00EC6196 /* FelicaReader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FelicaReader.swift; sourceTree = "<group>"; };
 		B5EB6AC42CC2135E00EC6196 /* FelicaScanView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FelicaScanView.swift; sourceTree = "<group>"; };
 		B5EB6AC62CC255D600EC6196 /* ISCBOOK2024.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = ISCBOOK2024.entitlements; sourceTree = "<group>"; };
-		C8F641C3E462E6165DC7238B /* Pods_ISCBOOK2024.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ISCBOOK2024.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		BDA603C52CE0EFB6002F77B3 /* ISCBOOK2024Debug.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = ISCBOOK2024Debug.entitlements; sourceTree = "<group>"; };
+		BDA603C62CE36B06002F77B3 /* Student.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Student.swift; sourceTree = "<group>"; };
+		BDA603C82CE36C65002F77B3 /* StudentAPIClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StudentAPIClient.swift; sourceTree = "<group>"; };
+		BDA603CA2CE438BE002F77B3 /* BorrowSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BorrowSheet.swift; sourceTree = "<group>"; };
+		BDA603CE2CE5DD7C002F77B3 /* BookViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookViewModel.swift; sourceTree = "<group>"; };
+		BDA6043D2CEB85F0002F77B3 /* BookResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookResponse.swift; sourceTree = "<group>"; };
+		BDA6043F2CEB86D3002F77B3 /* BookSearchAPIClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookSearchAPIClient.swift; sourceTree = "<group>"; };
+		E17CABF42F60F9878835CA33 /* Pods-ISCBOOK2024.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ISCBOOK2024.debug.xcconfig"; path = "Target Support Files/Pods-ISCBOOK2024/Pods-ISCBOOK2024.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -56,7 +65,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				69B81F94F00935AA5F71D04C /* Pods_ISCBOOK2024.framework in Frameworks */,
+				F9AF5A753271F4687A29BFFF /* Pods_ISCBOOK2024.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -67,7 +76,7 @@
 			isa = PBXGroup;
 			children = (
 				B5D0AA962CB508EB00EE9932 /* GoogleService-Info.plist */,
-				C8F641C3E462E6165DC7238B /* Pods_ISCBOOK2024.framework */,
+				79A8A4DEF105E769515427D4 /* Pods_ISCBOOK2024.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -75,8 +84,8 @@
 		6D52CC53B22FE07CCE1D447C /* Pods */ = {
 			isa = PBXGroup;
 			children = (
-				74929DC0488A9AAC54E309A3 /* Pods-ISCBOOK2024.debug.xcconfig */,
-				31F31EBBA8BA97230C571951 /* Pods-ISCBOOK2024.release.xcconfig */,
+				E17CABF42F60F9878835CA33 /* Pods-ISCBOOK2024.debug.xcconfig */,
+				B079F6C9D77CC97074AD6681 /* Pods-ISCBOOK2024.release.xcconfig */,
 			);
 			path = Pods;
 			sourceTree = "<group>";
@@ -85,7 +94,8 @@
 			isa = PBXGroup;
 			children = (
 				B5336A7A2CB4FCF300A1F157 /* Models */,
-				B5336A7D2CB4FEBA00A1F157 /* GoogleBooksAPIClient.swift */,
+				BDA6043F2CEB86D3002F77B3 /* BookSearchAPIClient.swift */,
+				BDA603C82CE36C65002F77B3 /* StudentAPIClient.swift */,
 				B5DDA60C2CB7DE80007D1F30 /* FirebaseClient.swift */,
 			);
 			path = Infrastructure;
@@ -94,7 +104,8 @@
 		B5336A7A2CB4FCF300A1F157 /* Models */ = {
 			isa = PBXGroup;
 			children = (
-				B5D0AA992CB50A2800EE9932 /* Book.swift */,
+				BDA603C62CE36B06002F77B3 /* Student.swift */,
+				BDA6043D2CEB85F0002F77B3 /* BookResponse.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -121,8 +132,10 @@
 		B5720EDE2CAE538A001EEDF2 /* ISCBOOK2024 */ = {
 			isa = PBXGroup;
 			children = (
+				BDA603C52CE0EFB6002F77B3 /* ISCBOOK2024Debug.entitlements */,
 				B5720EDF2CAE538A001EEDF2 /* ISCBOOK2024App.swift */,
 				B5720EED2CAE5406001EEDF2 /* UI */,
+				BDA603CC2CE5DD1C002F77B3 /* ViewModels */,
 				B5720EF72CB278F3001EEDF2 /* Domain */,
 				B5336A792CB4FCA600A1F157 /* Infrastructure */,
 				B5720EE32CAE538D001EEDF2 /* Assets.xcassets */,
@@ -164,7 +177,8 @@
 			isa = PBXGroup;
 			children = (
 				B5720EF32CB277F6001EEDF2 /* CameraView.swift */,
-				B5720EF52CB2789C001EEDF2 /* Scanner.swift */,
+				B5720EF52CB2789C001EEDF2 /* ScannerView.swift */,
+				B5720EF82CB279A6001EEDF2 /* Scanner.swift */,
 				B5720EFA2CB2B935001EEDF2 /* CameraOverlay.swift */,
 			);
 			path = CameraScreen;
@@ -173,8 +187,7 @@
 		B5720EF72CB278F3001EEDF2 /* Domain */ = {
 			isa = PBXGroup;
 			children = (
-				B5720EF82CB279A6001EEDF2 /* ScannerViewController.swift */,
-				B5EB6AC12CBBB61F00EC6196 /* FelicaReaderViewController.swift */,
+				B5EB6AC12CBBB61F00EC6196 /* FelicaReader.swift */,
 			);
 			path = Domain;
 			sourceTree = "<group>";
@@ -183,6 +196,7 @@
 			isa = PBXGroup;
 			children = (
 				B5D0AA9C2CB50E4800EE9932 /* BookView.swift */,
+				BDA603CA2CE438BE002F77B3 /* BorrowSheet.swift */,
 			);
 			path = BookScreen;
 			sourceTree = "<group>";
@@ -203,6 +217,22 @@
 			path = FelicaScanScreen;
 			sourceTree = "<group>";
 		};
+		BDA603CC2CE5DD1C002F77B3 /* ViewModels */ = {
+			isa = PBXGroup;
+			children = (
+				BDA603CD2CE5DD30002F77B3 /* BookScreen */,
+			);
+			path = ViewModels;
+			sourceTree = "<group>";
+		};
+		BDA603CD2CE5DD30002F77B3 /* BookScreen */ = {
+			isa = PBXGroup;
+			children = (
+				BDA603CE2CE5DD7C002F77B3 /* BookViewModel.swift */,
+			);
+			path = BookScreen;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -210,11 +240,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = B5720EEA2CAE538D001EEDF2 /* Build configuration list for PBXNativeTarget "ISCBOOK2024" */;
 			buildPhases = (
-				B3BF1BC30ED83F8A706A7802 /* [CP] Check Pods Manifest.lock */,
+				E0C47F02EEC09879CD561DF8 /* [CP] Check Pods Manifest.lock */,
 				B5720ED82CAE538A001EEDF2 /* Sources */,
 				B5720ED92CAE538A001EEDF2 /* Frameworks */,
 				B5720EDA2CAE538A001EEDF2 /* Resources */,
-				FDFC590536B966A158356E8E /* [CP] Embed Pods Frameworks */,
+				258F632E05C273294EFA1E2D /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -272,7 +302,24 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		B3BF1BC30ED83F8A706A7802 /* [CP] Check Pods Manifest.lock */ = {
+		258F632E05C273294EFA1E2D /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-ISCBOOK2024/Pods-ISCBOOK2024-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-ISCBOOK2024/Pods-ISCBOOK2024-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-ISCBOOK2024/Pods-ISCBOOK2024-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		E0C47F02EEC09879CD561DF8 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -294,23 +341,6 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
-		FDFC590536B966A158356E8E /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-ISCBOOK2024/Pods-ISCBOOK2024-frameworks-${CONFIGURATION}-input-files.xcfilelist",
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-ISCBOOK2024/Pods-ISCBOOK2024-frameworks-${CONFIGURATION}-output-files.xcfilelist",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-ISCBOOK2024/Pods-ISCBOOK2024-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
@@ -319,18 +349,22 @@
 			buildActionMask = 2147483647;
 			files = (
 				B5D0AA9D2CB50E4800EE9932 /* BookView.swift in Sources */,
-				B5D0AA9A2CB50A2800EE9932 /* Book.swift in Sources */,
-				B5720EF62CB2789C001EEDF2 /* Scanner.swift in Sources */,
+				B5720EF62CB2789C001EEDF2 /* ScannerView.swift in Sources */,
+				BDA6043E2CEB85F0002F77B3 /* BookResponse.swift in Sources */,
 				B5720EF42CB277F6001EEDF2 /* CameraView.swift in Sources */,
 				B5720EF02CAEB07F001EEDF2 /* StartView.swift in Sources */,
-				B5336A7E2CB4FEBA00A1F157 /* GoogleBooksAPIClient.swift in Sources */,
+				BDA603C72CE36B06002F77B3 /* Student.swift in Sources */,
 				B5EB6AC52CC2135E00EC6196 /* FelicaScanView.swift in Sources */,
-				B5720EF92CB279A6001EEDF2 /* ScannerViewController.swift in Sources */,
+				BDA604402CEB86D3002F77B3 /* BookSearchAPIClient.swift in Sources */,
+				B5720EF92CB279A6001EEDF2 /* Scanner.swift in Sources */,
 				B5EB6AC02CBB9F7600EC6196 /* AddBookView.swift in Sources */,
+				BDA603CF2CE5DD7C002F77B3 /* BookViewModel.swift in Sources */,
 				B5DDA60D2CB7DE80007D1F30 /* FirebaseClient.swift in Sources */,
+				BDA603C92CE36C65002F77B3 /* StudentAPIClient.swift in Sources */,
 				B5720EE02CAE538A001EEDF2 /* ISCBOOK2024App.swift in Sources */,
-				B5EB6AC22CBBB61F00EC6196 /* FelicaReaderViewController.swift in Sources */,
+				B5EB6AC22CBBB61F00EC6196 /* FelicaReader.swift in Sources */,
 				B5720EFB2CB2B935001EEDF2 /* CameraOverlay.swift in Sources */,
+				BDA603CB2CE438BE002F77B3 /* BorrowSheet.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -458,10 +492,11 @@
 		};
 		B5720EEB2CAE538D001EEDF2 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 74929DC0488A9AAC54E309A3 /* Pods-ISCBOOK2024.debug.xcconfig */;
+			baseConfigurationReference = E17CABF42F60F9878835CA33 /* Pods-ISCBOOK2024.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = ISCBOOK2024/ISCBOOK2024Debug.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"ISCBOOK2024/Preview Content\"";
@@ -493,10 +528,11 @@
 		};
 		B5720EEC2CAE538D001EEDF2 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 31F31EBBA8BA97230C571951 /* Pods-ISCBOOK2024.release.xcconfig */;
+			baseConfigurationReference = B079F6C9D77CC97074AD6681 /* Pods-ISCBOOK2024.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = ISCBOOK2024/ISCBOOK2024.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"ISCBOOK2024/Preview Content\"";

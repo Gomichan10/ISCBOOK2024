@@ -30,35 +30,35 @@ class FirebaseClient {
         }
     }
     
-    func saveFirestore(book: Book, completion: @escaping (Bool) -> Void) {
+    func saveFirestore(book: BookResponse?, completion: @escaping (Bool) -> Void) {
         var titleText = "タイトルがありません"
         var authorText = "著者不明"
         var detailText = "説明がありません"
-        var isbn13Text = "ISBN情報なし"
+        var isbnText = "ISBN情報なし"
         let NowTime = Timestamp(date: Date())
         
-        if let title = book.items.first?.volumeInfo.title {
+        if let title = book!.Items.first?.Item.title {
             titleText = title
         } else {
             titleText = ""
         }
 
-        if let authors = book.items.first?.volumeInfo.authors, let firstAuthor = authors.first {
-            authorText = firstAuthor
+        if let author = book!.Items.first?.Item.author {
+            authorText = author
         } else {
             authorText = ""
         }
 
-        if let detail = book.items.first?.volumeInfo.description {
+        if let detail = book!.Items.first?.Item.itemCaption {
             detailText = detail
         } else {
             detailText = ""
         }
 
-        if let isbn13 = book.items.first?.volumeInfo.industryIdentifiers.first(where: { $0.type == "ISBN_13" })?.identifier {
-            isbn13Text = isbn13
+        if let isbn = book!.Items.first?.Item.isbn {
+            isbnText = isbn
         } else {
-            isbn13Text = ""
+            isbnText = ""
         }
         
         db.collection("Book").document().setData(
@@ -68,7 +68,7 @@ class FirebaseClient {
                 "detail": detailText,
                 "lend": [""],
                 "time": NowTime,
-                "isbn": isbn13Text,
+                "isbn": isbnText,
                 "count": 1
             ]
         ) { error in
