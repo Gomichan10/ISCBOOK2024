@@ -20,7 +20,6 @@
 		B5DDA60D2CB7DE80007D1F30 /* FirebaseClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5DDA60C2CB7DE80007D1F30 /* FirebaseClient.swift */; };
 		B5EB6AC02CBB9F7600EC6196 /* AddBookView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5EB6ABF2CBB9F7600EC6196 /* AddBookView.swift */; };
 		B5EB6AC22CBBB61F00EC6196 /* FelicaReader.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5EB6AC12CBBB61F00EC6196 /* FelicaReader.swift */; };
-		B5EB6AC52CC2135E00EC6196 /* FelicaScanView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5EB6AC42CC2135E00EC6196 /* FelicaScanView.swift */; };
 		BDA603C72CE36B06002F77B3 /* Student.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDA603C62CE36B06002F77B3 /* Student.swift */; };
 		BDA603C92CE36C65002F77B3 /* StudentAPIClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDA603C82CE36C65002F77B3 /* StudentAPIClient.swift */; };
 		BDA603CB2CE438BE002F77B3 /* BorrowSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDA603CA2CE438BE002F77B3 /* BorrowSheet.swift */; };
@@ -48,7 +47,6 @@
 		B5DDA60C2CB7DE80007D1F30 /* FirebaseClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseClient.swift; sourceTree = "<group>"; };
 		B5EB6ABF2CBB9F7600EC6196 /* AddBookView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddBookView.swift; sourceTree = "<group>"; };
 		B5EB6AC12CBBB61F00EC6196 /* FelicaReader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FelicaReader.swift; sourceTree = "<group>"; };
-		B5EB6AC42CC2135E00EC6196 /* FelicaScanView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FelicaScanView.swift; sourceTree = "<group>"; };
 		B5EB6AC62CC255D600EC6196 /* ISCBOOK2024.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = ISCBOOK2024.entitlements; sourceTree = "<group>"; };
 		BDA603C52CE0EFB6002F77B3 /* ISCBOOK2024Debug.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = ISCBOOK2024Debug.entitlements; sourceTree = "<group>"; };
 		BDA603C62CE36B06002F77B3 /* Student.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Student.swift; sourceTree = "<group>"; };
@@ -160,7 +158,6 @@
 				B5720EF22CB272DB001EEDF2 /* CameraScreen */,
 				B5D0AA9B2CB50E1B00EE9932 /* BookScreen */,
 				B5EB6ABE2CBB9F0F00EC6196 /* AddBookScreen */,
-				B5EB6AC32CC2130300EC6196 /* FelicaScanScreen */,
 			);
 			path = UI;
 			sourceTree = "<group>";
@@ -207,14 +204,6 @@
 				B5EB6ABF2CBB9F7600EC6196 /* AddBookView.swift */,
 			);
 			path = AddBookScreen;
-			sourceTree = "<group>";
-		};
-		B5EB6AC32CC2130300EC6196 /* FelicaScanScreen */ = {
-			isa = PBXGroup;
-			children = (
-				B5EB6AC42CC2135E00EC6196 /* FelicaScanView.swift */,
-			);
-			path = FelicaScanScreen;
 			sourceTree = "<group>";
 		};
 		BDA603CC2CE5DD1C002F77B3 /* ViewModels */ = {
@@ -354,7 +343,6 @@
 				B5720EF42CB277F6001EEDF2 /* CameraView.swift in Sources */,
 				B5720EF02CAEB07F001EEDF2 /* StartView.swift in Sources */,
 				BDA603C72CE36B06002F77B3 /* Student.swift in Sources */,
-				B5EB6AC52CC2135E00EC6196 /* FelicaScanView.swift in Sources */,
 				BDA604402CEB86D3002F77B3 /* BookSearchAPIClient.swift in Sources */,
 				B5720EF92CB279A6001EEDF2 /* Scanner.swift in Sources */,
 				B5EB6AC02CBB9F7600EC6196 /* AddBookView.swift in Sources */,

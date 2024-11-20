@@ -30,11 +30,11 @@ struct BookView: View {
             BookImageArea
                 .onAppear {
                     if let code = scannedCode {
-                        FirebaseClient().checkIsbn(isbn: code) { result in
-                            switch result {
-                            case true:
+                        Task {
+                            let isbnExists = await FirebaseClient().checkIsbn(isbn: code)
+                            if isbnExists {
                                 isShowAlert = true
-                            case false:
+                            } else {
                                 Task {
                                     do {
                                         book = try await fetchBook(isbn: code)
@@ -50,7 +50,6 @@ struct BookView: View {
                                 }
                             }
                         }
-                        
                     } else {
                         print("Error")
                     }
