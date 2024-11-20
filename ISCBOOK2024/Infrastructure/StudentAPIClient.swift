@@ -10,7 +10,7 @@ import Keys
 
 class StudentAPIClient {
     
-    //生徒情報を取得
+    //生徒情報を取得する関数
     func fetchStudentInfo(idm: String) async throws -> Student {
         let key = ISCBOOK2024Keys()
         let apiKey = key.studentAPIKey
@@ -38,9 +38,6 @@ class StudentAPIClient {
         guard let httpResponse = response as? HTTPURLResponse, (200...299).contains(httpResponse.statusCode) else {
             throw URLError(.badServerResponse)
         }
-        
-        let dataString = String(data: data, encoding: .utf8)
-        print(dataString)
         
         // Jsonデコード
         let decoder = JSONDecoder()

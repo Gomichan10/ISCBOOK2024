@@ -16,6 +16,7 @@ class BookViewModel: ObservableObject {
     
     private let studentAPIClient = StudentAPIClient()
     
+    // idmをもとに生徒情報を取得する関数
     func fetchStudentInfo(idm: String) async {
         isLoading = true
         errorMessage = nil

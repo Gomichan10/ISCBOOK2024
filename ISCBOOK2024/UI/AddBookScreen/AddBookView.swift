@@ -26,9 +26,11 @@ struct AddBookView: View {
             BookImageArea
                 .onAppear {
                     if let code = scannedCode {
-                        FirebaseClient().checkIsbn(isbn: code) { result in
-                            switch result {
-                            case true:
+                        Task {
+                            let isbnExists = await FirebaseClient().checkIsbn(isbn: code)
+                            if isbnExists {
+                                isShowAlert = true
+                            } else {
                                 Task {
                                     do {
                                         book = try await fetchBook(isbn: code)
@@ -42,12 +44,8 @@ struct AddBookView: View {
                                         print("Error: \(error)")
                                     }
                                 }
-                                
-                            case false:
-                                isShowAlert = true
                             }
                         }
-                        
                     } else {
                         print("Error")
                     }
@@ -227,12 +225,12 @@ extension AddBookView {
             .padding(.vertical)
             Button(action: {
                 if isLoading {
-                    FirebaseClient().saveFirestore(book: book) { result in
-                        switch result {
-                        case true:
+                    Task {
+                        let saveResult = await FirebaseClient().saveFirestore(book: book)
+                        if saveResult {
                             print("Succses")
                             dismiss()
-                        case false:
+                        } else {
                             print("error")
                         }
                     }

@@ -12,25 +12,19 @@ class FirebaseClient {
     
     private let db = Firestore.firestore()
     
-    func checkIsbn(isbn: String, completion: @escaping (Bool) -> Void) {
-        db.collection("Book").whereField("isbn", isEqualTo: isbn).getDocuments { snapshot, error in
-            if let error = error {
-                print(error)
-                completion(false)
-                return
-            } else {
-                if let documents = snapshot?.documents, documents.isEmpty {
-                    completion(true)
-                    return
-                } else {
-                    completion(false)
-                    return
-                }
-            }
+    // ISBN がデータベースに存在するかを確認する関数
+    func checkIsbn(isbn: String) async -> Bool {
+        do {
+            let snapshot = try await db.collection("Book").whereField("isbn", isEqualTo: isbn).getDocuments()
+            return snapshot.documents.isEmpty
+        } catch {
+            print("Error checking ISBN: \(error)")
+            return false
         }
     }
     
-    func saveFirestore(book: BookResponse?, completion: @escaping (Bool) -> Void) {
+    // Firestore に新しい本の情報を保存する関数
+    func saveFirestore(book: BookResponse?) async -> Bool {
         var titleText = "タイトルがありません"
         var authorText = "著者不明"
         var detailText = "説明がありません"
@@ -42,46 +36,42 @@ class FirebaseClient {
         } else {
             titleText = ""
         }
-
+        
         if let author = book!.Items.first?.Item.author {
             authorText = author
         } else {
             authorText = ""
         }
-
+        
         if let detail = book!.Items.first?.Item.itemCaption {
             detailText = detail
         } else {
             detailText = ""
         }
-
+        
         if let isbn = book!.Items.first?.Item.isbn {
             isbnText = isbn
         } else {
             isbnText = ""
         }
         
-        db.collection("Book").document().setData(
-            [
-                "title": titleText,
-                "author": authorText,
-                "detail": detailText,
-                "lend": [""],
-                "time": NowTime,
-                "isbn": isbnText,
-                "count": 1
-            ]
-        ) { error in
-            if let error = error {
-                print(error)
-                completion(false)
-            } else {
-                completion(true)
-            }
-            
+        let data: [String: Any] = [
+            "title": titleText,
+            "author": authorText,
+            "detail": detailText,
+            "lend": [""],
+            "time": NowTime,
+            "isbn": isbnText,
+            "count": 1
+        ]
+        
+        do {
+            try await db.collection("Book").document().setData(data)
+            return true
+        } catch {
+            print("Error saving Firestore document: \(error)")
+            return false
         }
     }
-    
-    
     
 }
