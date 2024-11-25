@@ -84,19 +84,22 @@ struct BorrowSheet: View {
                 }
                 
                 Button {
-                    Task {
-                        do {
-                            try await FirebaseClient().updateBorrowers(isbn: book?.Items.first?.Item.isbn ?? "", email: bookViewModel.student?.student?.email ?? "")
-                            isBorrowedAlert = true
-                            dismiss()
-                        } catch {
-                            print("An error occurred while adding to the array: \(error)")
+                    if bookViewModel.isSheetLoading {
+                        Task {
+                            do {
+                                try await FirebaseClient().updateBorrowers(isbn: book?.Items.first?.Item.isbn ?? "", email: bookViewModel.student?.student?.email ?? "")
+                                isBorrowedAlert = true
+                                dismiss()
+                            } catch {
+                                print("An error occurred while adding to the array: \(error)")
+                            }
                         }
                     }
                 } label: {
                     ZStack {
                         Capsule()
                             .frame(width: 370, height: 60)
+                            .foregroundColor(bookViewModel.isSheetLoading ? .blue : .gray)
                             .shadow(radius: 8)
                         Text("本を借りる")
                             .foregroundColor(.white)
