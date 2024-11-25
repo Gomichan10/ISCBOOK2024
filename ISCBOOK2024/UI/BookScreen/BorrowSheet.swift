@@ -9,8 +9,12 @@ import SwiftUI
 
 struct BorrowSheet: View {
     
-    @Binding var book: BookResponse?
+    @State var book: BookResponse?
+    
+    @Binding var isBorrowedAlert: Bool
     @Binding var isShowSheet: Bool
+    
+    @Environment(\.dismiss) var dismiss
     
     @ObservedObject var bookViewModel: BookViewModel
     @ObservedObject var felicaReader: FelicaReader
@@ -80,7 +84,15 @@ struct BorrowSheet: View {
                 }
                 
                 Button {
-                    return
+                    Task {
+                        do {
+                            try await FirebaseClient().updateBorrowers(isbn: book?.Items.first?.Item.isbn ?? "", email: bookViewModel.student?.student?.email ?? "")
+                            isBorrowedAlert = true
+                            dismiss()
+                        } catch {
+                            print("An error occurred while adding to the array: \(error)")
+                        }
+                    }
                 } label: {
                     ZStack {
                         Capsule()
@@ -91,7 +103,7 @@ struct BorrowSheet: View {
                             .bold()
                     }
                 }
-
+                
             }
             .toolbar {
                 Button {
@@ -106,7 +118,6 @@ struct BorrowSheet: View {
                             .bold()
                     }
                 }
-
             }
         }
     }

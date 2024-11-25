@@ -26,6 +26,7 @@
 		BDA603CF2CE5DD7C002F77B3 /* BookViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDA603CE2CE5DD7C002F77B3 /* BookViewModel.swift */; };
 		BDA6043E2CEB85F0002F77B3 /* BookResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDA6043D2CEB85F0002F77B3 /* BookResponse.swift */; };
 		BDA604402CEB86D3002F77B3 /* BookSearchAPIClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDA6043F2CEB86D3002F77B3 /* BookSearchAPIClient.swift */; };
+		BDA604432CEECF16002F77B3 /* Destination.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDA604422CEECF16002F77B3 /* Destination.swift */; };
 		F9AF5A753271F4687A29BFFF /* Pods_ISCBOOK2024.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 79A8A4DEF105E769515427D4 /* Pods_ISCBOOK2024.framework */; };
 /* End PBXBuildFile section */
 
@@ -55,6 +56,7 @@
 		BDA603CE2CE5DD7C002F77B3 /* BookViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookViewModel.swift; sourceTree = "<group>"; };
 		BDA6043D2CEB85F0002F77B3 /* BookResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookResponse.swift; sourceTree = "<group>"; };
 		BDA6043F2CEB86D3002F77B3 /* BookSearchAPIClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookSearchAPIClient.swift; sourceTree = "<group>"; };
+		BDA604422CEECF16002F77B3 /* Destination.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Destination.swift; sourceTree = "<group>"; };
 		E17CABF42F60F9878835CA33 /* Pods-ISCBOOK2024.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ISCBOOK2024.debug.xcconfig"; path = "Target Support Files/Pods-ISCBOOK2024/Pods-ISCBOOK2024.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -158,6 +160,7 @@
 				B5720EF22CB272DB001EEDF2 /* CameraScreen */,
 				B5D0AA9B2CB50E1B00EE9932 /* BookScreen */,
 				B5EB6ABE2CBB9F0F00EC6196 /* AddBookScreen */,
+				BDA604412CEECEE1002F77B3 /* enum */,
 			);
 			path = UI;
 			sourceTree = "<group>";
@@ -220,6 +223,14 @@
 				BDA603CE2CE5DD7C002F77B3 /* BookViewModel.swift */,
 			);
 			path = BookScreen;
+			sourceTree = "<group>";
+		};
+		BDA604412CEECEE1002F77B3 /* enum */ = {
+			isa = PBXGroup;
+			children = (
+				BDA604422CEECF16002F77B3 /* Destination.swift */,
+			);
+			path = enum;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -345,6 +356,7 @@
 				BDA603C72CE36B06002F77B3 /* Student.swift in Sources */,
 				BDA604402CEB86D3002F77B3 /* BookSearchAPIClient.swift in Sources */,
 				B5720EF92CB279A6001EEDF2 /* Scanner.swift in Sources */,
+				BDA604432CEECF16002F77B3 /* Destination.swift in Sources */,
 				B5EB6AC02CBB9F7600EC6196 /* AddBookView.swift in Sources */,
 				BDA603CF2CE5DD7C002F77B3 /* BookViewModel.swift in Sources */,
 				B5DDA60D2CB7DE80007D1F30 /* FirebaseClient.swift in Sources */,

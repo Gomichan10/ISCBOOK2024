@@ -13,10 +13,10 @@ struct AddBookView: View {
     @State private var showSheet: Bool = false
     @State private var isExpanded: Bool = false
     @State private var isShowAlert: Bool = false
-    @State var isLoading: Bool = false
     @State var reviewAverageInt: Int = 0
     @State var book: BookResponse?
-    @Binding var scannedCode: String?
+    @State var isLoading: Bool = false
+    @State var scannedCode: String?
     
     @Environment(\.dismiss) var dismiss
     
@@ -29,8 +29,6 @@ struct AddBookView: View {
                         Task {
                             let isbnExists = await FirebaseClient().checkIsbn(isbn: code)
                             if isbnExists {
-                                isShowAlert = true
-                            } else {
                                 Task {
                                     do {
                                         book = try await fetchBook(isbn: code)
@@ -44,6 +42,8 @@ struct AddBookView: View {
                                         print("Error: \(error)")
                                     }
                                 }
+                            } else {
+                                isShowAlert = true
                             }
                         }
                     } else {
@@ -53,9 +53,10 @@ struct AddBookView: View {
             Spacer()
             InputArea
         }
+        .navigationBarBackButtonHidden(true)
         .frame(maxWidth: .infinity)
         .ignoresSafeArea()
-        .alert("この方はすでに追加されています", isPresented: $isShowAlert) {
+        .alert("この本はすでに追加されています", isPresented: $isShowAlert) {
             Button("OK") {
                 dismiss()
             }
