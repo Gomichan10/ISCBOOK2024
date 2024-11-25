@@ -40,9 +40,8 @@
 - アーキテクチャ
     - MVVMアーキテクチャ
 - ライブラリ
-    - Alamofire : API連携
-    - Firebase : バックエンド
-    - FSCalendar : カレンダーの描画
+    - Alamofire : API連携 (現在はURLSessionに完全移行しました)
+    - Firebase : 認証、データベース
     - cocoapods-keys : APIKeyの管理
 - API
     - 楽天のBookSearchAPI
