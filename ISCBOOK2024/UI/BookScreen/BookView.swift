@@ -9,19 +9,15 @@ import SwiftUI
 
 struct BookView: View {
     
-    @State private var showSheet: Bool = false
-    @State private var isExpanded: Bool = false
-    @State private var isShowAlert: Bool = false
-    @State var isBorrowedAlert: Bool = false
-    @State var isLoading: Bool = false
-    @State var isShowSheet: Bool = false
-    @State var book: BookResponse?
-    @State var reviewAverageInt: Int = 0
-    @State var scannedCode: String?
-    @State var isBorrowing: Bool?
-    
     @StateObject var felicaReader = FelicaReader()
     @StateObject var bookViewModel = BookViewModel()
+    
+    @State private var showSheet: Bool = false
+    @State private var isExpanded: Bool = false
+    @State var isBorrowedAlert: Bool = false
+    @State var isShowSheet: Bool = false
+    @State var scannedCode: String?
+    @State var isBorrowing: Bool?
     
     @Binding var path: NavigationPath
     
@@ -32,24 +28,7 @@ struct BookView: View {
                 .onAppear {
                     if let code = scannedCode {
                         Task {
-                            let isbnExists = await FirebaseClient().checkIsbn(isbn: code)
-                            if isbnExists {
-                                isShowAlert = true
-                            } else {
-                                Task {
-                                    do {
-                                        book = try await fetchBook(isbn: code)
-                                        if let reviewAverageString = book?.Items.first?.Item.reviewAverage,
-                                           let reviewAverageDouble = Double(reviewAverageString) {
-                                            // 小数点を切り捨てて整数化
-                                            reviewAverageInt = Int(reviewAverageDouble)
-                                        }
-                                        isLoading.toggle()
-                                    } catch {
-                                        print("Error: \(error)")
-                                    }
-                                }
-                            }
+                            await bookViewModel.fetchBookDetail(isbn: code)
                         }
                     } else {
                         print("Error")
@@ -61,7 +40,7 @@ struct BookView: View {
         .navigationBarBackButtonHidden(true)
         .frame(maxWidth: .infinity)
         .ignoresSafeArea()
-        .alert("この本は借りれません", isPresented: $isShowAlert) {
+        .alert("この本は借りれません", isPresented: $bookViewModel.isShowAlert) {
             Button("OK") {
                 path.removeLast()
             }
@@ -77,7 +56,7 @@ struct BookView: View {
         }
         .sheet(isPresented: $isShowSheet) {
             VStack {
-                BorrowSheet(book: book, isBorrowedAlert: $isBorrowedAlert,isShowSheet: $isShowSheet, bookViewModel: bookViewModel, felicaReader: felicaReader)
+                BorrowSheet(book: bookViewModel.book, isBorrowedAlert: $isBorrowedAlert,isShowSheet: $isShowSheet, bookViewModel: bookViewModel, felicaReader: felicaReader)
             }
             .presentationDetents([.medium])
         }
@@ -91,7 +70,7 @@ extension BookView {
         ScrollView {
             VStack (alignment: .leading) {
                 ZStack {
-                    if let imageUrlString = book?.Items.first?.Item.largeImageUrl,
+                    if let imageUrlString = bookViewModel.bookItem?.largeImageUrl,
                        let imageUrl = URL(string: imageUrlString) {
                         AsyncImage(url: imageUrl) { phase in
                             switch phase {
@@ -123,50 +102,50 @@ extension BookView {
                 .background(Color.gray.opacity(0.7))
                 Spacer()
                 VStack (){
-                    Text(book?.Items.first?.Item.author ?? "")
+                    Text(bookViewModel.bookItem?.author ?? "")
                         .frame(maxWidth: .infinity, alignment: .leading)
                         .foregroundColor(.gray)
                         .bold()
                     
-                    Text(book?.Items.first?.Item.title ?? "")
+                    Text(bookViewModel.bookItem?.title ?? "")
                         .frame(maxWidth: .infinity, alignment: .leading)
                         .bold()
                     
                     Spacer()
                         .frame(height: 10)
                     
-                    switch reviewAverageInt {
+                    switch bookViewModel.reviewAverageInt {
                     case 0:
-                        Text("☆☆☆☆☆(\(book?.Items.first?.Item.reviewCount ?? 0))")
+                        Text("☆☆☆☆☆(\(bookViewModel.bookItem?.reviewCount ?? 0))")
                             .frame(maxWidth: .infinity, alignment: .leading)
                             .bold()
                             .font(.system(size: 15.0))
                             .padding(.vertical, 4)
                     case 1:
-                        Text("★☆☆☆☆(\(book?.Items.first?.Item.reviewCount ?? 0))")
+                        Text("★☆☆☆☆(\(bookViewModel.bookItem?.reviewCount ?? 0))")
                             .frame(maxWidth: .infinity, alignment: .leading)
                             .bold()
                             .font(.system(size: 15.0))
                             .padding(.vertical)
                     case 2:
-                        Text("★★☆☆☆(\(book?.Items.first?.Item.reviewCount ?? 0))")
+                        Text("★★☆☆☆(\(bookViewModel.bookItem?.reviewCount ?? 0))")
                             .frame(maxWidth: .infinity, alignment: .leading)
                             .bold()
                             .font(.system(size: 15.0))
                             .padding(.vertical)
                     case 3:
-                        Text("★★★☆☆(\(book?.Items.first?.Item.reviewCount ?? 0))")
+                        Text("★★★☆☆(\(bookViewModel.bookItem?.reviewCount ?? 0))")
                             .frame(maxWidth: .infinity, alignment: .leading)
                             .bold()
                             .font(.system(size: 15.0))
                     case 4:
-                        Text("★★★★☆(\(book?.Items.first?.Item.reviewCount ?? 0))")
+                        Text("★★★★☆(\(bookViewModel.bookItem?.reviewCount ?? 0))")
                             .frame(maxWidth: .infinity, alignment: .leading)
                             .bold()
                             .font(.system(size: 15.0))
                             .padding(.vertical)
                     case 5:
-                        Text("★★★★★(\(book?.Items.first?.Item.reviewCount ?? 0))")
+                        Text("★★★★★(\(bookViewModel.bookItem?.reviewCount ?? 0))")
                             .frame(maxWidth: .infinity, alignment: .leading)
                             .bold()
                             .font(.system(size: 15.0))
@@ -208,7 +187,7 @@ extension BookView {
                     
                     // isExpandedがtrueのときに表示されるテキスト
                     if isExpanded {
-                        Text(book?.Items.first?.Item.itemCaption ?? "本の詳細がありません")
+                        Text(bookViewModel.bookItem?.itemCaption ?? "本の詳細がありません")
                             .padding()
                             .transition(.opacity)
                     }
@@ -243,14 +222,14 @@ extension BookView {
             
             if !(isBorrowing ?? false) {
                 Button {
-                    if isLoading {
+                    if bookViewModel.isLoading {
                         felicaReader.beginScanning()
                     }
                 } label: {
                     ZStack {
                         Rectangle()
                             .frame(width: 280, height: 55)
-                            .foregroundColor(isLoading ? .blue : .gray)
+                            .foregroundColor(bookViewModel.isLoading ? .blue : .gray)
                             .cornerRadius(8.0)
                         Text("本を借りる")
                             .foregroundColor(.white)

@@ -10,22 +10,52 @@ import SwiftUI
 
 @MainActor
 class BookViewModel: ObservableObject {
-    @Published var student: Student?
+    @Published var book: BookResponse?
+    @Published var reviewAverageInt: Int = 0
     @Published var isLoading: Bool = false
+    @Published var isShowAlert: Bool = false
+    
+    @Published var student: Student?
+    @Published var isSheetLoading: Bool = false
     @Published var errorMessage: String?
     
     private let studentAPIClient = StudentAPIClient()
     
+    var bookItem: BookInfo? {
+        book?.Items.first?.Item
+    }
+    
     // idmをもとに生徒情報を取得する関数
     func fetchStudentInfo(idm: String) async {
-        isLoading = true
+        isSheetLoading = false
         errorMessage = nil
         do {
             let fetchedStudent = try await studentAPIClient.fetchStudentInfo(idm: idm)
             self.student = fetchedStudent
+            isSheetLoading = true
         } catch {
             self.errorMessage = "生徒情報の取得に失敗しました: \(error.localizedDescription)"
         }
+    }
+    
+    // 本の情報を取得する関数
+    func fetchBookDetail(isbn: String) async {
         isLoading = false
+        do {
+            let isbnExists = await FirebaseClient().checkIsbn(isbn: isbn)
+            if isbnExists {
+                self.isShowAlert = true
+            } else {
+                book = try await fetchBook(isbn: isbn)
+                if let reviewAverageString = book?.Items.first?.Item.reviewAverage,
+                   let reviewAverageDouble = Double(reviewAverageString) {
+                    // 小数点を切り捨てて整数化
+                    reviewAverageInt = Int(reviewAverageDouble)
+                }
+                isLoading = true
+            }
+        } catch {
+            print("Error: \(error)")
+        }
     }
 }
