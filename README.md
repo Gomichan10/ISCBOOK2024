@@ -41,11 +41,12 @@
     - MVVMアーキテクチャ
 - ライブラリ
     - Alamofire : API連携 (現在はURLSessionに完全移行しました)
-    - Firebase : 認証、データベース
     - cocoapods-keys : APIKeyの管理
 - API
     - 楽天のBookSearchAPI
     - CoreNFC
+- クラウド
+    - Firebase : 認証、データベース
 
 ## 制作過程 (現在開発中!)
 
