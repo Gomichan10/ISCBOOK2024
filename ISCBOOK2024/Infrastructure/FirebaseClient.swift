@@ -74,4 +74,16 @@ class FirebaseClient {
         }
     }
     
+    func updateBorrowers(isbn: String, email: String) async throws {
+        
+        let snapshot = try await db.collection("Book").whereField("isbn", isEqualTo: isbn).getDocuments()
+        
+        for document in snapshot.documents {
+            let documentRef = document.reference
+            try await documentRef.updateData([
+                "lend": FieldValue.arrayUnion([email]),
+                "time": FieldValue.serverTimestamp()
+            ])
+        }
+    }
 }

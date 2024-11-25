@@ -10,13 +10,13 @@ import SwiftUI
 
 struct CameraOverlay: View {
     
-    var dismissAction: () -> Void
+    @Binding var path: NavigationPath
     
     var body: some View {
         VStack {
             HStack {
                 Button {
-                    dismissAction()
+                    path.removeLast(path.count)
                 } label: {
                     ZStack {
                         Circle()

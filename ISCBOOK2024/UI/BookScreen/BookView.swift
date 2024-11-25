@@ -12,17 +12,18 @@ struct BookView: View {
     @State private var showSheet: Bool = false
     @State private var isExpanded: Bool = false
     @State private var isShowAlert: Bool = false
+    @State var isBorrowedAlert: Bool = false
     @State var isLoading: Bool = false
     @State var isShowSheet: Bool = false
     @State var book: BookResponse?
     @State var reviewAverageInt: Int = 0
-    @Binding var scannedCode: String?
-    @Binding var isBorrowing: Bool?
+    @State var scannedCode: String?
+    @State var isBorrowing: Bool?
     
     @StateObject var felicaReader = FelicaReader()
     @StateObject var bookViewModel = BookViewModel()
     
-    @Environment(\.dismiss) var dismiss
+    @Binding var path: NavigationPath
     
     
     var body: some View {
@@ -57,18 +58,26 @@ struct BookView: View {
             Spacer()
             InputArea
         }
+        .navigationBarBackButtonHidden(true)
         .frame(maxWidth: .infinity)
         .ignoresSafeArea()
         .alert("この本は借りれません", isPresented: $isShowAlert) {
             Button("OK") {
-                dismiss()
+                path.removeLast()
             }
         } message: {
             Text("図書コーナーにある本を借りてください")
         }
+        .alert("本の貸し出しが完了しました", isPresented: $isBorrowedAlert) {
+            Button("OK") {
+                path.removeLast(path.count)
+            }
+        } message: {
+            Text("返却期限までに本を返却してください")
+        }
         .sheet(isPresented: $isShowSheet) {
             VStack {
-                BorrowSheet(book: $book, isShowSheet: $isShowSheet, bookViewModel: bookViewModel, felicaReader: felicaReader)
+                BorrowSheet(book: book, isBorrowedAlert: $isBorrowedAlert,isShowSheet: $isShowSheet, bookViewModel: bookViewModel, felicaReader: felicaReader)
             }
             .presentationDetents([.medium])
         }
@@ -217,7 +226,7 @@ extension BookView {
     var InputArea: some View {
         HStack {
             Button(action: {
-                dismiss()
+                path.removeLast()
             }, label: {
                 ZStack {
                     Circle()

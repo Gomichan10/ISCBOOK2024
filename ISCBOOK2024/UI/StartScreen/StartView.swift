@@ -9,24 +9,41 @@ import SwiftUI
 
 struct StartView: View {
     
+    @State private var path = NavigationPath()
+    
     var body: some View {
-        NavigationView {
+        NavigationStack(path: $path) {
             GeometryReader{ geometry in
                 VStack {
-                    
                     Spacer()
                     
-                    NavigationLink(destination: CameraView(isBorrowing: false)) {
+                    Button {
+                        path.append(Destination.lending)
+                    } label: {
                         LendingButton(geometry: geometry)
                     }
                     
-                    NavigationLink(destination: CameraView(isBorrowing: true)) {
+                    Button {
+                        path.append(Destination.returning)
+                    } label: {
                         ReturnButton(geometry: geometry)
                     }
                     
                     Spacer()
                 }
                 .frame(maxWidth: .infinity, maxHeight: .infinity)
+            }
+            .navigationDestination(for: Destination.self) { destination in
+                switch destination {
+                case .lending:
+                    CameraView(isBorrowing: false, path: $path)
+                case .returning:
+                    CameraView(isBorrowing: true, path: $path)
+                case .bookView(let code, let isBorrowing):
+                    BookView(scannedCode: code, isBorrowing: isBorrowing, path: $path)
+                case .addBookView(code: let code):
+                    AddBookView(scannedCode: code)
+                }
             }
         }
     }

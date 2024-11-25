@@ -10,28 +10,31 @@ import SwiftUI
 struct CameraView: View {
     
     @State private var scannedCode: String?
-    
     @State var isBorrowing: Bool?
     
-    @Environment(\.dismiss) var dismiss
+    @Binding var path: NavigationPath
     
     var body: some View {
         ZStack {
-            if let code = scannedCode, code.starts(with: "978")  {
-                BookView(scannedCode: $scannedCode, isBorrowing: $isBorrowing)
-                // AddBookView(scannedCode: $scannedCode)
-            } else {
-                ScannerView(scannedCode: $scannedCode)
-                    .ignoresSafeArea()
-                CameraOverlay {
-                    dismiss()
+            ScannerView(scannedCode: $scannedCode)
+                .ignoresSafeArea()
+                .onChange(of: scannedCode) {
+                    if let code = scannedCode, code.starts(with: "978")  {
+                        appendBookPath(code: code)
+                        // appendAddBookPath(code: code)
+                    }
                 }
-            }
+            CameraOverlay(path: $path)
         }
         .navigationBarBackButtonHidden(true)
     }
+    
+    private func appendBookPath(code: String) {
+        path.append(Destination.bookView(code: code, isBorrowing: isBorrowing))
+    }
+    
+    private func appendAddBookPath(code: String) {
+        path.append(Destination.addBookView(code: code))
+    }
 }
 
-#Preview {
-    CameraView()
-}
