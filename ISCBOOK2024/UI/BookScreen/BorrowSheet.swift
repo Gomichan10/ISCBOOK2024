@@ -10,8 +10,10 @@ import SwiftUI
 struct BorrowSheet: View {
     
     @State var book: BookResponse?
+    @State var isBorrowing: Bool
     
     @Binding var isBorrowedAlert: Bool
+    @Binding var isReturnedAlert: Bool
     @Binding var isShowSheet: Bool
     
     @Environment(\.dismiss) var dismiss
@@ -28,7 +30,7 @@ struct BorrowSheet: View {
                     .padding(.leading)
                     .font(.title2)
                 HStack {
-                    let imageUrl = URL(string: book?.Items.first?.Item.largeImageUrl ?? "")
+                    let imageUrl = URL(string: bookViewModel.bookItem?.largeImageUrl ?? "")
                     AsyncImage(url: imageUrl) { phase in
                         switch phase {
                         case .empty:
@@ -50,11 +52,11 @@ struct BorrowSheet: View {
                         }
                     }
                     VStack {
-                        Text(book?.Items.first?.Item.author ?? "")
+                        Text(bookViewModel.bookItem?.author ?? "")
                             .foregroundColor(.gray)
                             .bold()
                             .frame(maxWidth: .infinity, alignment: .leading)
-                        Text(book?.Items.first?.Item.title ?? "")
+                        Text(bookViewModel.bookItem?.title ?? "")
                             .bold()
                             .frame(maxWidth: .infinity, alignment: .leading)
                     }
@@ -74,10 +76,10 @@ struct BorrowSheet: View {
                         .frame(width: 70, height: 70)
                         .padding(.horizontal)
                     VStack {
-                        Text(bookViewModel.student?.student?.name ?? "")
+                        Text(bookViewModel.studentInfo?.name ?? "")
                             .bold()
                             .frame(maxWidth: .infinity, alignment: .leading)
-                        Text(bookViewModel.student?.student?.email ?? "")
+                        Text(bookViewModel.studentInfo?.email ?? "")
                             .bold()
                             .frame(maxWidth: .infinity, alignment: .leading)
                     }
@@ -85,13 +87,28 @@ struct BorrowSheet: View {
                 
                 Button {
                     if bookViewModel.isSheetLoading {
-                        Task {
-                            do {
-                                try await FirebaseClient().updateBorrowers(isbn: book?.Items.first?.Item.isbn ?? "", email: bookViewModel.student?.student?.email ?? "")
-                                isBorrowedAlert = true
-                                dismiss()
-                            } catch {
-                                print("An error occurred while adding to the array: \(error)")
+                        if isBorrowing {
+                            Task {
+                                do {
+                                    guard let isbn = bookViewModel.bookItem?.isbn, let email = bookViewModel.studentInfo?.email else {
+                                        return
+                                    }
+                                    try await FirebaseClient().returnBook(isbn: isbn, email: email)
+                                    isReturnedAlert = true
+                                    dismiss()
+                                } catch {
+                                    print("An error occurred while returning the book: \(error.localizedDescription)")
+                                }
+                            }
+                        } else {
+                            Task {
+                                do {
+                                    try await FirebaseClient().borrowBook(isbn: book?.Items.first?.Item.isbn ?? "", email: bookViewModel.student?.student?.email ?? "")
+                                    isBorrowedAlert = true
+                                    dismiss()
+                                } catch {
+                                    print("An error occurred while adding to the array: \(error.localizedDescription)")
+                                }
                             }
                         }
                     }
@@ -101,7 +118,7 @@ struct BorrowSheet: View {
                             .frame(width: 370, height: 60)
                             .foregroundColor(bookViewModel.isSheetLoading ? .blue : .gray)
                             .shadow(radius: 8)
-                        Text("本を借りる")
+                        Text(isBorrowing ? "本を返す" : "本を借りる")
                             .foregroundColor(.white)
                             .bold()
                     }

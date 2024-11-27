@@ -28,6 +28,10 @@ class BookViewModel: ObservableObject {
         book?.Items.first?.Item
     }
     
+    var studentInfo: StudentDetails? {
+        student?.student
+    }
+    
     // idmをもとに生徒情報を取得する関数
     func fetchStudentInfo(idm: String) async {
         isSheetLoading = false

@@ -15,6 +15,7 @@ struct BookView: View {
     @State private var showSheet: Bool = false
     @State private var isExpanded: Bool = false
     @State var isBorrowedAlert: Bool = false
+    @State var isReturnedAlert: Bool = false
     @State var isShowSheet: Bool = false
     @State var scannedCode: String?
     @State var isBorrowing: Bool?
@@ -61,12 +62,19 @@ struct BookView: View {
         } message: {
             Text("この本は現在貸し出し中になっています。返却を行なってください。")
         }
-        .alert("この本は返せません", isPresented: $bookViewModel.isReturnAlert) {
+        .alert("貸し出し処理が完了しました", isPresented: $isBorrowedAlert) {
             Button("OK") {
                 path.removeLast(path.count)
             }
         } message: {
-            Text("この本は現在貸し出しされていません。貸出を行なってください。")
+            Text("返却期限までに返却してください。")
+        }
+        .alert("返却処理が完了しました", isPresented: $isReturnedAlert) {
+            Button("OK") {
+                path.removeLast(path.count)
+            }
+        } message: {
+            Text("もとあった位置に本を戻してください。")
         }
         .alert("エラーが起きました", isPresented: $bookViewModel.isErrorAlert) {
             Button("OK") {
@@ -76,10 +84,12 @@ struct BookView: View {
             Text("エラーが発生しました。")
         }
         .sheet(isPresented: $isShowSheet) {
-            VStack {
-                BorrowSheet(book: bookViewModel.book, isBorrowedAlert: $isBorrowedAlert,isShowSheet: $isShowSheet, bookViewModel: bookViewModel, felicaReader: felicaReader)
-            }
-            .presentationDetents([.medium])
+            if let isBorrowing = isBorrowing {
+                VStack {
+                    BorrowSheet(book: bookViewModel.book, isBorrowing: isBorrowing, isBorrowedAlert: $isBorrowedAlert, isReturnedAlert: $isReturnedAlert,isShowSheet: $isShowSheet, bookViewModel: bookViewModel, felicaReader: felicaReader)
+                }
+                .presentationDetents([.medium])
+            } 
         }
     }
 }
@@ -270,7 +280,9 @@ extension BookView {
                 }
             } else {
                 Button {
-                    return
+                    if bookViewModel.isLoading {
+                        felicaReader.beginScanning()
+                    }
                 } label: {
                     ZStack {
                         Rectangle()
@@ -283,6 +295,14 @@ extension BookView {
                     }
                     .padding(.vertical)
                     .padding(.bottom, 10)
+                }
+                .onChange(of: felicaReader.idm) {
+                    if !felicaReader.idm.isEmpty {
+                        Task {
+                            await bookViewModel.fetchStudentInfo(idm: felicaReader.idm)
+                            isShowSheet.toggle()
+                        }
+                    }
                 }
             }
         }
