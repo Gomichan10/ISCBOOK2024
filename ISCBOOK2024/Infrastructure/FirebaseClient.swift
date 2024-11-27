@@ -49,7 +49,7 @@ class FirebaseClient {
     }
     
     // 本を借りるときの処理
-    func updateBorrowers(isbn: String, email: String) async throws {
+    func borrowBook(isbn: String, email: String) async throws {
         
         let snapshot = try await db.collection("Book").whereField("isbn", isEqualTo: isbn).getDocuments()
         
@@ -64,14 +64,48 @@ class FirebaseClient {
         }
     }
     
+    // 本を返すときの処理
+    func returnBook(isbn: String, email: String) async throws {
+        let snapshot = try await db.collection("Book").whereField("isbn", isEqualTo: isbn).getDocuments()
+        
+        for document in snapshot.documents {
+            let documentRef = document.reference
+            let data = document.data()
+            
+            guard var lendArray = data["lend"] as? [String],
+                  var timeArray = data["time"] as? [Timestamp] else {
+                print("`lend`または`time`フィールドが見つかりません")
+                return
+            }
+            
+            if let index = lendArray.firstIndex(of: email) {
+                lendArray.remove(at: index)
+                timeArray.remove(at: index)
+                
+                try await documentRef.updateData([
+                    "lend": lendArray,
+                    "time": timeArray
+                ])
+                
+                print("返却処理が完了しました: \(email)")
+            } else {
+                print("該当するメールアドレスが`lend`に見つかりません: \(email)")
+            }
+        }
+    }
+    
     // 借りたり返したりできる状況か判断する関数
     func checkBookAvailability(isbn: String, isBorrowing: Bool) async -> BookStatus {
         do {
             let snapshot = try await db.collection("Book").whereField("isbn", isEqualTo: isbn).getDocuments()
             
             if let document = snapshot.documents.first, let book = try? document.data(as: BookFirestore.self) {
-                let validLendList = book.lend.filter { !$0.isEmpty }
-                
+                guard let lendList = book.lend, !lendList.isEmpty else {
+                    return .error("error")
+                }
+
+                let validLendList = lendList.filter { !$0.isEmpty }
+
                 // 借りる場合
                 if !isBorrowing {
                     if validLendList.count >= book.count {
