@@ -11,8 +11,7 @@ import CoreNFC
 final class FelicaReader: NSObject, ObservableObject, NFCTagReaderSessionDelegate {
     
     @Published var idm: String = ""
-    @Published var systemCode: String = ""
-    @Published var isScanning: Bool = false
+    private var systemCode: String = ""
     
     private var session: NFCTagReaderSession?
     
@@ -24,7 +23,6 @@ final class FelicaReader: NSObject, ObservableObject, NFCTagReaderSessionDelegat
         }
         
         print("NFCが有効です。スキャンを開始します。")
-        isScanning = true
         
         // Felicaタグ用のセッションを開始
         session = NFCTagReaderSession(pollingOption: .iso18092, delegate: self, queue: nil)
@@ -66,7 +64,6 @@ final class FelicaReader: NSObject, ObservableObject, NFCTagReaderSessionDelegat
                 DispatchQueue.main.async {
                     self.idm = idm
                     self.systemCode = systemCode
-                    self.isScanning = false
                 }
                 
                 session.invalidate()
@@ -80,8 +77,5 @@ final class FelicaReader: NSObject, ObservableObject, NFCTagReaderSessionDelegat
     // セッションが無効になったときに呼ばれる
     func tagReaderSession(_ session: NFCTagReaderSession, didInvalidateWithError error: Error) {
         print("NFCスキャンが無効になりました: \(error.localizedDescription)")
-        DispatchQueue.main.async {
-            self.isScanning = false
-        }
     }
 }

@@ -26,9 +26,9 @@ struct BookView: View {
         VStack {
             BookImageArea
                 .onAppear {
-                    if let code = scannedCode {
+                    if let code = scannedCode, let isBorrowing = isBorrowing {
                         Task {
-                            await bookViewModel.fetchBookDetail(isbn: code)
+                            await bookViewModel.fetchBookDetail(isbn: code, isBorrowing: isBorrowing)
                         }
                     } else {
                         print("Error")
@@ -45,14 +45,35 @@ struct BookView: View {
                 path.removeLast()
             }
         } message: {
-            Text("図書コーナーにある本を借りてください")
+            Text("図書コーナーにある本を借りてください。")
         }
-        .alert("本の貸し出しが完了しました", isPresented: $isBorrowedAlert) {
+        .alert("この本は借りれません", isPresented: $bookViewModel.isBorrowAlert) {
             Button("OK") {
                 path.removeLast(path.count)
             }
         } message: {
-            Text("返却期限までに本を返却してください")
+            Text("この本は現在貸し出し中になっています。返却を行なってください。")
+        }
+        .alert("この本は返せません", isPresented: $bookViewModel.isReturnAlert) {
+            Button("OK") {
+                path.removeLast(path.count)
+            }
+        } message: {
+            Text("この本は現在貸し出し中になっています。返却を行なってください。")
+        }
+        .alert("この本は返せません", isPresented: $bookViewModel.isReturnAlert) {
+            Button("OK") {
+                path.removeLast(path.count)
+            }
+        } message: {
+            Text("この本は現在貸し出しされていません。貸出を行なってください。")
+        }
+        .alert("エラーが起きました", isPresented: $bookViewModel.isErrorAlert) {
+            Button("OK") {
+                path.removeLast(path.count)
+            }
+        } message: {
+            Text("エラーが発生しました。")
         }
         .sheet(isPresented: $isShowSheet) {
             VStack {

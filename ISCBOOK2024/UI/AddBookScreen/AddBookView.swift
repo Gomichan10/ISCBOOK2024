@@ -27,7 +27,7 @@ struct AddBookView: View {
                 .onAppear {
                     if let code = scannedCode {
                         Task {
-                            let isbnExists = await FirebaseClient().checkIsbn(isbn: code)
+                            let isbnExists = await FirebaseClient().checkIsbnExists(isbn: code)
                             if isbnExists {
                                 Task {
                                     do {
@@ -226,14 +226,18 @@ extension AddBookView {
             .padding(.vertical)
             Button(action: {
                 if isLoading {
-                    Task {
-                        let saveResult = await FirebaseClient().saveFirestore(book: book)
-                        if saveResult {
-                            print("Succses")
-                            dismiss()
-                        } else {
-                            print("error")
+                    if let book = book {
+                        Task {
+                            let saveResult = await FirebaseClient().saveFirestore(book: book)
+                            if saveResult {
+                                print("Succses")
+                                dismiss()
+                            } else {
+                                print("error")
+                            }
                         }
+                    } else {
+                        print("Error")
                     }
                 }
             }, label: {
