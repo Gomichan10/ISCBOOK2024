@@ -14,6 +14,9 @@ class BookViewModel: ObservableObject {
     @Published var reviewAverageInt: Int = 0
     @Published var isLoading: Bool = false
     @Published var isShowAlert: Bool = false
+    @Published var isBorrowAlert: Bool = false
+    @Published var isReturnAlert: Bool = false
+    @Published var isErrorAlert: Bool = false
     
     @Published var student: Student?
     @Published var isSheetLoading: Bool = false
@@ -39,20 +42,35 @@ class BookViewModel: ObservableObject {
     }
     
     // 本の情報を取得する関数
-    func fetchBookDetail(isbn: String) async {
+    func fetchBookDetail(isbn: String, isBorrowing: Bool) async {
         isLoading = false
         do {
-            let isbnExists = await FirebaseClient().checkIsbn(isbn: isbn)
+            let isbnExists = await FirebaseClient().checkIsbnExists(isbn: isbn)
             if isbnExists {
                 self.isShowAlert = true
             } else {
-                book = try await fetchBook(isbn: isbn)
-                if let reviewAverageString = book?.Items.first?.Item.reviewAverage,
-                   let reviewAverageDouble = Double(reviewAverageString) {
-                    // 小数点を切り捨てて整数化
-                    reviewAverageInt = Int(reviewAverageDouble)
+                let bookStatus = await FirebaseClient().checkBookAvailability(isbn: isbn, isBorrowing: isBorrowing)
+                
+                switch bookStatus {
+                case .success:
+                    book = try await fetchBook(isbn: isbn)
+                    if let reviewAverageString = book?.Items.first?.Item.reviewAverage,
+                       let reviewAverageDouble = Double(reviewAverageString) {
+                        // 小数点を切り捨てて整数化
+                        reviewAverageInt = Int(reviewAverageDouble)
+                    }
+                    isLoading = true
+                    
+                case .notAvailableBorrow:
+                    isBorrowAlert = true
+                
+                case .notAvailableReturn:
+                    isReturnAlert = true
+                    
+                case .error(let error):
+                    print("エラー: \(error)")
+                    isErrorAlert = true
                 }
-                isLoading = true
             }
         } catch {
             print("Error: \(error)")

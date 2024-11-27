@@ -27,6 +27,8 @@
 		BDA6043E2CEB85F0002F77B3 /* BookResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDA6043D2CEB85F0002F77B3 /* BookResponse.swift */; };
 		BDA604402CEB86D3002F77B3 /* BookSearchAPIClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDA6043F2CEB86D3002F77B3 /* BookSearchAPIClient.swift */; };
 		BDA604432CEECF16002F77B3 /* Destination.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDA604422CEECF16002F77B3 /* Destination.swift */; };
+		BDA604452CF6112D002F77B3 /* BookFirestore.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDA604442CF6112D002F77B3 /* BookFirestore.swift */; };
+		BDA604472CF61245002F77B3 /* BookStatus.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDA604462CF61245002F77B3 /* BookStatus.swift */; };
 		F9AF5A753271F4687A29BFFF /* Pods_ISCBOOK2024.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 79A8A4DEF105E769515427D4 /* Pods_ISCBOOK2024.framework */; };
 /* End PBXBuildFile section */
 
@@ -57,6 +59,8 @@
 		BDA6043D2CEB85F0002F77B3 /* BookResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookResponse.swift; sourceTree = "<group>"; };
 		BDA6043F2CEB86D3002F77B3 /* BookSearchAPIClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookSearchAPIClient.swift; sourceTree = "<group>"; };
 		BDA604422CEECF16002F77B3 /* Destination.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Destination.swift; sourceTree = "<group>"; };
+		BDA604442CF6112D002F77B3 /* BookFirestore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookFirestore.swift; sourceTree = "<group>"; };
+		BDA604462CF61245002F77B3 /* BookStatus.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookStatus.swift; sourceTree = "<group>"; };
 		E17CABF42F60F9878835CA33 /* Pods-ISCBOOK2024.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ISCBOOK2024.debug.xcconfig"; path = "Target Support Files/Pods-ISCBOOK2024/Pods-ISCBOOK2024.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -106,6 +110,7 @@
 			children = (
 				BDA603C62CE36B06002F77B3 /* Student.swift */,
 				BDA6043D2CEB85F0002F77B3 /* BookResponse.swift */,
+				BDA604442CF6112D002F77B3 /* BookFirestore.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -138,6 +143,7 @@
 				BDA603CC2CE5DD1C002F77B3 /* ViewModels */,
 				B5720EF72CB278F3001EEDF2 /* Domain */,
 				B5336A792CB4FCA600A1F157 /* Infrastructure */,
+				BDA604412CEECEE1002F77B3 /* enum */,
 				B5720EE32CAE538D001EEDF2 /* Assets.xcassets */,
 				B5720EE52CAE538D001EEDF2 /* Preview Content */,
 				B5EB6AC62CC255D600EC6196 /* ISCBOOK2024.entitlements */,
@@ -160,7 +166,6 @@
 				B5720EF22CB272DB001EEDF2 /* CameraScreen */,
 				B5D0AA9B2CB50E1B00EE9932 /* BookScreen */,
 				B5EB6ABE2CBB9F0F00EC6196 /* AddBookScreen */,
-				BDA604412CEECEE1002F77B3 /* enum */,
 			);
 			path = UI;
 			sourceTree = "<group>";
@@ -229,6 +234,7 @@
 			isa = PBXGroup;
 			children = (
 				BDA604422CEECF16002F77B3 /* Destination.swift */,
+				BDA604462CF61245002F77B3 /* BookStatus.swift */,
 			);
 			path = enum;
 			sourceTree = "<group>";
@@ -352,12 +358,14 @@
 				B5720EF62CB2789C001EEDF2 /* ScannerView.swift in Sources */,
 				BDA6043E2CEB85F0002F77B3 /* BookResponse.swift in Sources */,
 				B5720EF42CB277F6001EEDF2 /* CameraView.swift in Sources */,
+				BDA604472CF61245002F77B3 /* BookStatus.swift in Sources */,
 				B5720EF02CAEB07F001EEDF2 /* StartView.swift in Sources */,
 				BDA603C72CE36B06002F77B3 /* Student.swift in Sources */,
 				BDA604402CEB86D3002F77B3 /* BookSearchAPIClient.swift in Sources */,
 				B5720EF92CB279A6001EEDF2 /* Scanner.swift in Sources */,
 				BDA604432CEECF16002F77B3 /* Destination.swift in Sources */,
 				B5EB6AC02CBB9F7600EC6196 /* AddBookView.swift in Sources */,
+				BDA604452CF6112D002F77B3 /* BookFirestore.swift in Sources */,
 				BDA603CF2CE5DD7C002F77B3 /* BookViewModel.swift in Sources */,
 				B5DDA60D2CB7DE80007D1F30 /* FirebaseClient.swift in Sources */,
 				BDA603C92CE36C65002F77B3 /* StudentAPIClient.swift in Sources */,
