@@ -17,6 +17,7 @@ class BookViewModel: ObservableObject {
     @Published var isBorrowAlert: Bool = false
     @Published var isReturnAlert: Bool = false
     @Published var isErrorAlert: Bool = false
+    @Published var isBorrowedAlert: Bool = false
     
     @Published var student: Student?
     @Published var isSheetLoading: Bool = false
@@ -67,7 +68,7 @@ class BookViewModel: ObservableObject {
                     
                 case .notAvailableBorrow:
                     isBorrowAlert = true
-                
+                    
                 case .notAvailableReturn:
                     isReturnAlert = true
                     
@@ -78,6 +79,16 @@ class BookViewModel: ObservableObject {
             }
         } catch {
             print("Error: \(error)")
+        }
+    }
+    
+    // 本をすでに借りているか確認する関数
+    func checkBorrowStatus(isbn: String, email: String) async {
+        let isBorrowed = await FirebaseClient().checkBorrowedStatus(isbn: isbn, email: email)
+        if isBorrowed {
+            isBorrowedAlert = true
+        } else {
+            print("User \(email) has not borrowed the book with ISBN \(isbn).")
         }
     }
 }
