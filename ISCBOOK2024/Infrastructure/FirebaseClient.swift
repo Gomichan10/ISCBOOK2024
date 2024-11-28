@@ -103,9 +103,9 @@ class FirebaseClient {
                 guard let lendList = book.lend, !lendList.isEmpty else {
                     return .error("error")
                 }
-
+                
                 let validLendList = lendList.filter { !$0.isEmpty }
-
+                
                 // 借りる場合
                 if !isBorrowing {
                     if validLendList.count >= book.count {
@@ -131,4 +131,26 @@ class FirebaseClient {
         return .error("不明なエラーが発生しました")
     }
     
+    // すでに借りているかどうか確認する関数
+    func checkBorrowedStatus(isbn: String, email: String) async -> Bool {
+        do {
+            let snapshot = try await db.collection("Book").whereField("isbn", isEqualTo: isbn).getDocuments()
+            
+            guard let documet = snapshot.documents.first else {
+                print("Book not found for ISBN: \(isbn)")
+                return false
+            }
+            
+            let book = try documet.data(as: BookFirestore.self)
+            
+            if let lendList = book.lend, lendList.contains(email) {
+                return true
+            } else {
+                return false
+            }
+        } catch {
+            print("An error occurred while checking the lend list: \(error.localizedDescription)")
+            return false
+        }
+    }
 }

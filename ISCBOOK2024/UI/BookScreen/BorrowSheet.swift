@@ -87,12 +87,12 @@ struct BorrowSheet: View {
                 
                 Button {
                     if bookViewModel.isSheetLoading {
+                        guard let isbn = bookViewModel.bookItem?.isbn, let email = bookViewModel.studentInfo?.email else {
+                            return
+                        }
                         if isBorrowing {
                             Task {
                                 do {
-                                    guard let isbn = bookViewModel.bookItem?.isbn, let email = bookViewModel.studentInfo?.email else {
-                                        return
-                                    }
                                     try await FirebaseClient().returnBook(isbn: isbn, email: email)
                                     isReturnedAlert = true
                                     dismiss()
@@ -103,9 +103,15 @@ struct BorrowSheet: View {
                         } else {
                             Task {
                                 do {
-                                    try await FirebaseClient().borrowBook(isbn: book?.Items.first?.Item.isbn ?? "", email: bookViewModel.student?.student?.email ?? "")
-                                    isBorrowedAlert = true
-                                    dismiss()
+                                    await bookViewModel.checkBorrowStatus(isbn: isbn, email: email)
+                                    
+                                    if bookViewModel.isBorrowedAlert {
+                                        dismiss()
+                                    } else {
+                                        try await FirebaseClient().borrowBook(isbn: book?.Items.first?.Item.isbn ?? "", email: bookViewModel.student?.student?.email ?? "")
+                                        isBorrowedAlert = true
+                                        dismiss()
+                                    }
                                 } catch {
                                     print("An error occurred while adding to the array: \(error.localizedDescription)")
                                 }

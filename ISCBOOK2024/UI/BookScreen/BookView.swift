@@ -76,6 +76,13 @@ struct BookView: View {
         } message: {
             Text("もとあった位置に本を戻してください。")
         }
+        .alert("もうすでに借りています", isPresented: $bookViewModel.isBorrowedAlert) {
+            Button("OK") {
+                path.removeLast(path.count)
+            }
+        } message: {
+            Text("この本をすでに借りているようです。")
+        }
         .alert("エラーが起きました", isPresented: $bookViewModel.isErrorAlert) {
             Button("OK") {
                 path.removeLast(path.count)
