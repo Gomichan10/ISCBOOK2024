@@ -34,7 +34,7 @@ class FirebaseClient {
             "author": bookInfo?.author ?? "著者不明",
             "detail": bookInfo?.itemCaption ?? "説明がありません",
             "lend": [""],
-            "time": currentTime,
+            "time": [currentTime],
             "isbn": bookInfo?.isbn ?? "ISBN情報なし",
             "count": 1
         ]

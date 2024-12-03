@@ -42,7 +42,7 @@ struct StartView: View {
                 case .bookView(let code, let isBorrowing):
                     BookView(scannedCode: code, isBorrowing: isBorrowing, path: $path)
                 case .addBookView(code: let code):
-                    AddBookView(scannedCode: code)
+                    AddBookView(scannedCode: code, path: $path)
                 }
             }
         }
