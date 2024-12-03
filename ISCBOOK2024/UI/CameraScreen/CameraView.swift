@@ -10,7 +10,7 @@ import SwiftUI
 struct CameraView: View {
     
     @State private var scannedCode: String?
-    @State var isBorrowing: Bool?
+    @State var isBorrowing: Bool
     
     @Binding var path: NavigationPath
     

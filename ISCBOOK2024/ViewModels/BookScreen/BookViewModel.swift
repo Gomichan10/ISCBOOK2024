@@ -18,6 +18,8 @@ class BookViewModel: ObservableObject {
     @Published var isReturnAlert: Bool = false
     @Published var isErrorAlert: Bool = false
     @Published var isBorrowedAlert: Bool = false
+    @Published var isReturnSuccess: Bool = false
+    @Published var isBorrowedSuccess: Bool = false
     
     @Published var student: Student?
     @Published var isSheetLoading: Bool = false
@@ -83,12 +85,36 @@ class BookViewModel: ObservableObject {
     }
     
     // 本をすでに借りているか確認する関数
-    func checkBorrowStatus(isbn: String, email: String) async {
+    func checkBorrowStatus(isbn: String, email: String) async -> Bool {
         let isBorrowed = await FirebaseClient().checkBorrowedStatus(isbn: isbn, email: email)
         if isBorrowed {
-            isBorrowedAlert = true
+            return true
         } else {
             print("User \(email) has not borrowed the book with ISBN \(isbn).")
+            return false
+        }
+    }
+    
+    // 本を返却するための関数
+    func borrowReturnBook(isbn: String, email: String, isBorrowing: Bool) async {
+        do {
+            if isBorrowing {
+                // 本を返す処理
+                try await FirebaseClient().returnBook(isbn: isbn, email: email)
+                self.isReturnSuccess = true
+            } else {
+                // 本を借りているか確認
+                let isAlreadyBorrowed = await checkBorrowStatus(isbn: isbn, email: email)
+                if isAlreadyBorrowed {
+                    self.isBorrowedAlert = true
+                } else {
+                    // 本を借りる処理
+                    try await FirebaseClient().borrowBook(isbn: isbn, email: email)
+                    self.isBorrowedSuccess = true
+                }
+            }
+        } catch {
+            print("An error occurred: \(error.localizedDescription)")
         }
     }
 }

@@ -14,11 +14,9 @@ struct BookView: View {
     
     @State private var showSheet: Bool = false
     @State private var isExpanded: Bool = false
-    @State var isBorrowedAlert: Bool = false
-    @State var isReturnedAlert: Bool = false
     @State var isShowSheet: Bool = false
     @State var scannedCode: String?
-    @State var isBorrowing: Bool?
+    @State var isBorrowing: Bool
     
     @Binding var path: NavigationPath
     
@@ -27,7 +25,7 @@ struct BookView: View {
         VStack {
             BookImageArea
                 .onAppear {
-                    if let code = scannedCode, let isBorrowing = isBorrowing {
+                    if let code = scannedCode {
                         Task {
                             await bookViewModel.fetchBookDetail(isbn: code, isBorrowing: isBorrowing)
                         }
@@ -62,14 +60,14 @@ struct BookView: View {
         } message: {
             Text("この本は現在貸し出し中になっています。返却を行なってください。")
         }
-        .alert("貸し出し処理が完了しました", isPresented: $isBorrowedAlert) {
+        .alert("貸し出し処理が完了しました", isPresented: $bookViewModel.isBorrowedSuccess) {
             Button("OK") {
                 path.removeLast(path.count)
             }
         } message: {
             Text("返却期限までに返却してください。")
         }
-        .alert("返却処理が完了しました", isPresented: $isReturnedAlert) {
+        .alert("返却処理が完了しました", isPresented: $bookViewModel.isReturnSuccess) {
             Button("OK") {
                 path.removeLast(path.count)
             }
@@ -91,12 +89,10 @@ struct BookView: View {
             Text("エラーが発生しました。")
         }
         .sheet(isPresented: $isShowSheet) {
-            if let isBorrowing = isBorrowing {
-                VStack {
-                    BorrowSheet(book: bookViewModel.book, isBorrowing: isBorrowing, isBorrowedAlert: $isBorrowedAlert, isReturnedAlert: $isReturnedAlert,isShowSheet: $isShowSheet, bookViewModel: bookViewModel, felicaReader: felicaReader)
-                }
-                .presentationDetents([.medium])
-            } 
+            VStack {
+                BorrowSheet(book: bookViewModel.book, isBorrowing: isBorrowing, isShowSheet: $isShowSheet, bookViewModel: bookViewModel, felicaReader: felicaReader)
+            }
+            .presentationDetents([.medium])
         }
     }
 }
@@ -258,7 +254,7 @@ extension BookView {
             .padding(.vertical)
             .padding(.bottom, 10)
             
-            if !(isBorrowing ?? false) {
+            if isBorrowing {
                 Button {
                     if bookViewModel.isLoading {
                         felicaReader.beginScanning()
