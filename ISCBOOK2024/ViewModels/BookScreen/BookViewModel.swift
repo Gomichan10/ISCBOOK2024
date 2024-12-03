@@ -20,6 +20,7 @@ class BookViewModel: ObservableObject {
     @Published var isBorrowedAlert: Bool = false
     @Published var isReturnSuccess: Bool = false
     @Published var isBorrowedSuccess: Bool = false
+    @Published var isAdded: Bool = false
     
     @Published var student: Student?
     @Published var isSheetLoading: Bool = false
@@ -84,6 +85,27 @@ class BookViewModel: ObservableObject {
         }
     }
     
+    // 本を追加する画面の本の情報を取得する関数
+    func fetchAddBookDetail(isbn: String) async {
+        isLoading = false
+        do {
+            let isbnExists = await FirebaseClient().checkIsbnExists(isbn: isbn)
+            if isbnExists {
+                book = try await fetchBook(isbn: isbn)
+                if let reviewAverageString = book?.Items.first?.Item.reviewAverage,
+                   let reviewAverageDouble = Double(reviewAverageString) {
+                    // 小数点を切り捨てて整数化
+                    reviewAverageInt = Int(reviewAverageDouble)
+                }
+                isLoading = true
+            } else {
+                isAdded = true
+            }
+        } catch {
+            print("Error: \(error)")
+        }
+    }
+    
     // 本をすでに借りているか確認する関数
     func checkBorrowStatus(isbn: String, email: String) async -> Bool {
         let isBorrowed = await FirebaseClient().checkBorrowedStatus(isbn: isbn, email: email)
@@ -95,7 +117,7 @@ class BookViewModel: ObservableObject {
         }
     }
     
-    // 本を返却するための関数
+    // 本を借りる、または返すときの関数
     func borrowReturnBook(isbn: String, email: String, isBorrowing: Bool) async {
         do {
             if isBorrowing {
@@ -115,6 +137,22 @@ class BookViewModel: ObservableObject {
             }
         } catch {
             print("An error occurred: \(error.localizedDescription)")
+        }
+    }
+    
+    // 本を追加するための関数
+    func saveBook() async -> Bool {
+        guard let book = book else {
+            print("本の情報を取得できませんでした")
+            return false
+        }
+        
+        let saveBookResult = await FirebaseClient().saveFirestore(book: book)
+        
+        if saveBookResult {
+            return true
+        } else {
+            return false
         }
     }
 }

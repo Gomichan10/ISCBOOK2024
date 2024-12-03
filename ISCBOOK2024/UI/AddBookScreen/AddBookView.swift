@@ -12,13 +12,12 @@ struct AddBookView: View {
     
     @State private var showSheet: Bool = false
     @State private var isExpanded: Bool = false
-    @State private var isShowAlert: Bool = false
     @State var reviewAverageInt: Int = 0
-    @State var book: BookResponse?
-    @State var isLoading: Bool = false
     @State var scannedCode: String?
     
-    @Environment(\.dismiss) var dismiss
+    @StateObject var bookViewModel = BookViewModel()
+    
+    @Binding var path: NavigationPath
     
     
     var body: some View {
@@ -27,24 +26,7 @@ struct AddBookView: View {
                 .onAppear {
                     if let code = scannedCode {
                         Task {
-                            let isbnExists = await FirebaseClient().checkIsbnExists(isbn: code)
-                            if isbnExists {
-                                Task {
-                                    do {
-                                        book = try await fetchBook(isbn: code)
-                                        if let reviewAverageString = book?.Items.first?.Item.reviewAverage,
-                                           let reviewAverageDouble = Double(reviewAverageString) {
-                                            // 小数点を切り捨てて整数化
-                                            reviewAverageInt = Int(reviewAverageDouble)
-                                        }
-                                        isLoading.toggle()
-                                    } catch {
-                                        print("Error: \(error)")
-                                    }
-                                }
-                            } else {
-                                isShowAlert = true
-                            }
+                            await bookViewModel.fetchAddBookDetail(isbn: code)
                         }
                     } else {
                         print("Error")
@@ -56,9 +38,9 @@ struct AddBookView: View {
         .navigationBarBackButtonHidden(true)
         .frame(maxWidth: .infinity)
         .ignoresSafeArea()
-        .alert("この本はすでに追加されています", isPresented: $isShowAlert) {
+        .alert("この本はすでに追加されています", isPresented: $bookViewModel.isAdded) {
             Button("OK") {
-                dismiss()
+                path.removeLast()
             }
         } message: {
             Text("違う本を追加してください")
@@ -73,7 +55,7 @@ extension AddBookView {
         ScrollView {
             VStack (alignment: .leading) {
                 ZStack {
-                    if let imageUrlString = book?.Items.first?.Item.largeImageUrl,
+                    if let imageUrlString = bookViewModel.bookItem?.largeImageUrl,
                        let imageUrl = URL(string: imageUrlString) {
                         AsyncImage(url: imageUrl) { phase in
                             switch phase {
@@ -106,13 +88,13 @@ extension AddBookView {
                 .background(Color.gray.opacity(0.7))
                 Spacer()
                 VStack (){
-                    Text(book?.Items.first?.Item.author ?? "")
+                    Text(bookViewModel.bookItem?.author ?? "")
                         .frame(maxWidth: .infinity, alignment: .leading)
                         .padding(.trailing, 14)
                         .foregroundColor(.gray)
                         .bold()
                     
-                    Text(book?.Items.first?.Item.title ?? "")
+                    Text(bookViewModel.bookItem?.title ?? "")
                         .frame(maxWidth: .infinity, alignment: .leading)
                         .padding(.trailing, 14)
                         .bold()
@@ -120,38 +102,38 @@ extension AddBookView {
                     Spacer()
                         .frame(height: 10)
                     
-                    switch reviewAverageInt {
+                    switch bookViewModel.reviewAverageInt {
                     case 0:
-                        Text("☆☆☆☆☆(\(book?.Items.first?.Item.reviewCount ?? 0))")
+                        Text("☆☆☆☆☆(\(bookViewModel.bookItem?.reviewCount ?? 0))")
                             .frame(maxWidth: .infinity, alignment: .leading)
                             .bold()
                             .font(.system(size: 15.0))
                             .padding(.vertical, 4)
                     case 1:
-                        Text("★☆☆☆☆(\(book?.Items.first?.Item.reviewCount ?? 0))")
+                        Text("★☆☆☆☆(\(bookViewModel.bookItem?.reviewCount ?? 0))")
                             .frame(maxWidth: .infinity, alignment: .leading)
                             .bold()
                             .font(.system(size: 15.0))
                             .padding(.vertical)
                     case 2:
-                        Text("★★☆☆☆(\(book?.Items.first?.Item.reviewCount ?? 0))")
+                        Text("★★☆☆☆(\(bookViewModel.bookItem?.reviewCount ?? 0))")
                             .frame(maxWidth: .infinity, alignment: .leading)
                             .bold()
                             .font(.system(size: 15.0))
                             .padding(.vertical)
                     case 3:
-                        Text("★★★☆☆(\(book?.Items.first?.Item.reviewCount ?? 0))")
+                        Text("★★★☆☆(\(bookViewModel.bookItem?.reviewCount ?? 0))")
                             .frame(maxWidth: .infinity, alignment: .leading)
                             .bold()
                             .font(.system(size: 15.0))
                     case 4:
-                        Text("★★★★☆(\(book?.Items.first?.Item.reviewCount ?? 0))")
+                        Text("★★★★☆(\(bookViewModel.bookItem?.reviewCount ?? 0))")
                             .frame(maxWidth: .infinity, alignment: .leading)
                             .bold()
                             .font(.system(size: 15.0))
                             .padding(.vertical)
                     case 5:
-                        Text("★★★★★(\(book?.Items.first?.Item.reviewCount ?? 0))")
+                        Text("★★★★★(\(bookViewModel.bookItem?.reviewCount ?? 0))")
                             .frame(maxWidth: .infinity, alignment: .leading)
                             .bold()
                             .font(.system(size: 15.0))
@@ -193,7 +175,7 @@ extension AddBookView {
                     
                     // isExpandedがtrueのときに表示されるテキスト
                     if isExpanded {
-                        Text(book?.Items.first?.Item.itemCaption ?? "本の詳細がありません")
+                        Text(bookViewModel.bookItem?.itemCaption ?? "本の詳細がありません")
                             .padding()
                             .transition(.opacity)
                     }
@@ -211,7 +193,7 @@ extension AddBookView {
     var InputArea: some View {
         HStack {
             Button(action: {
-                dismiss()
+                path.removeLast()
             }, label: {
                 ZStack {
                     Circle()
@@ -225,19 +207,15 @@ extension AddBookView {
             })
             .padding(.vertical)
             Button(action: {
-                if isLoading {
-                    if let book = book {
-                        Task {
-                            let saveResult = await FirebaseClient().saveFirestore(book: book)
-                            if saveResult {
-                                print("Succses")
-                                dismiss()
-                            } else {
-                                print("error")
-                            }
+                if bookViewModel.isLoading {
+                    Task {
+                        let saveBookResult = await bookViewModel.saveBook()
+                        
+                        if saveBookResult {
+                            path.removeLast()
+                        } else {
+                            print("正常に本が保存できませんでした")
                         }
-                    } else {
-                        print("Error")
                     }
                 }
             }, label: {
@@ -245,7 +223,7 @@ extension AddBookView {
                     Rectangle()
                         .frame(width: 280, height: 55)
                         .cornerRadius(8.0)
-                        .foregroundColor(isLoading ? .blue : .gray)
+                        .foregroundColor(bookViewModel.isLoading ? .blue : .gray)
                     Text("本を追加")
                         .foregroundColor(.white)
                         .bold()
