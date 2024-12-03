@@ -10,6 +10,6 @@ import Foundation
 enum Destination: Hashable {
     case lending
     case returning
-    case bookView(code: String, isBorrowing: Bool?)
+    case bookView(code: String, isBorrowing: Bool)
     case addBookView(code: String)
 }

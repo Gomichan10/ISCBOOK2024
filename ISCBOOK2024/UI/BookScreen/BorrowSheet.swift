@@ -12,8 +12,6 @@ struct BorrowSheet: View {
     @State var book: BookResponse?
     @State var isBorrowing: Bool
     
-    @Binding var isBorrowedAlert: Bool
-    @Binding var isReturnedAlert: Bool
     @Binding var isShowSheet: Bool
     
     @Environment(\.dismiss) var dismiss
@@ -90,33 +88,10 @@ struct BorrowSheet: View {
                         guard let isbn = bookViewModel.bookItem?.isbn, let email = bookViewModel.studentInfo?.email else {
                             return
                         }
-                        if isBorrowing {
-                            Task {
-                                do {
-                                    try await FirebaseClient().returnBook(isbn: isbn, email: email)
-                                    isReturnedAlert = true
-                                    dismiss()
-                                } catch {
-                                    print("An error occurred while returning the book: \(error.localizedDescription)")
-                                }
-                            }
-                        } else {
-                            Task {
-                                do {
-                                    await bookViewModel.checkBorrowStatus(isbn: isbn, email: email)
-                                    
-                                    if bookViewModel.isBorrowedAlert {
-                                        dismiss()
-                                    } else {
-                                        try await FirebaseClient().borrowBook(isbn: book?.Items.first?.Item.isbn ?? "", email: bookViewModel.student?.student?.email ?? "")
-                                        isBorrowedAlert = true
-                                        dismiss()
-                                    }
-                                } catch {
-                                    print("An error occurred while adding to the array: \(error.localizedDescription)")
-                                }
-                            }
+                        Task {
+                            await bookViewModel.borrowReturnBook(isbn: isbn, email: email, isBorrowing: isBorrowing)
                         }
+                        dismiss()
                     }
                 } label: {
                     ZStack {
