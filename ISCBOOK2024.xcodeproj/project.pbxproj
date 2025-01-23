@@ -29,6 +29,7 @@
 		BDA604432CEECF16002F77B3 /* Destination.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDA604422CEECF16002F77B3 /* Destination.swift */; };
 		BDA604452CF6112D002F77B3 /* BookFirestore.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDA604442CF6112D002F77B3 /* BookFirestore.swift */; };
 		BDA604472CF61245002F77B3 /* BookStatus.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDA604462CF61245002F77B3 /* BookStatus.swift */; };
+		BDFBC9BE2D0F2E9200D6543D /* AddBookManualView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDFBC9BD2D0F2E9200D6543D /* AddBookManualView.swift */; };
 		F9AF5A753271F4687A29BFFF /* Pods_ISCBOOK2024.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 79A8A4DEF105E769515427D4 /* Pods_ISCBOOK2024.framework */; };
 /* End PBXBuildFile section */
 
@@ -61,6 +62,7 @@
 		BDA604422CEECF16002F77B3 /* Destination.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Destination.swift; sourceTree = "<group>"; };
 		BDA604442CF6112D002F77B3 /* BookFirestore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookFirestore.swift; sourceTree = "<group>"; };
 		BDA604462CF61245002F77B3 /* BookStatus.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookStatus.swift; sourceTree = "<group>"; };
+		BDFBC9BD2D0F2E9200D6543D /* AddBookManualView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddBookManualView.swift; sourceTree = "<group>"; };
 		E17CABF42F60F9878835CA33 /* Pods-ISCBOOK2024.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ISCBOOK2024.debug.xcconfig"; path = "Target Support Files/Pods-ISCBOOK2024/Pods-ISCBOOK2024.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -210,6 +212,7 @@
 			isa = PBXGroup;
 			children = (
 				B5EB6ABF2CBB9F7600EC6196 /* AddBookView.swift */,
+				BDFBC9BD2D0F2E9200D6543D /* AddBookManualView.swift */,
 			);
 			path = AddBookScreen;
 			sourceTree = "<group>";
@@ -357,6 +360,7 @@
 				B5D0AA9D2CB50E4800EE9932 /* BookView.swift in Sources */,
 				B5720EF62CB2789C001EEDF2 /* ScannerView.swift in Sources */,
 				BDA6043E2CEB85F0002F77B3 /* BookResponse.swift in Sources */,
+				BDFBC9BE2D0F2E9200D6543D /* AddBookManualView.swift in Sources */,
 				B5720EF42CB277F6001EEDF2 /* CameraView.swift in Sources */,
 				BDA604472CF61245002F77B3 /* BookStatus.swift in Sources */,
 				B5720EF02CAEB07F001EEDF2 /* StartView.swift in Sources */,

@@ -12,4 +12,5 @@ enum Destination: Hashable {
     case returning
     case bookView(code: String, isBorrowing: Bool)
     case addBookView(code: String)
+    case addBookManualView(code: String)
 }

@@ -21,6 +21,8 @@ class BookViewModel: ObservableObject {
     @Published var isReturnSuccess: Bool = false
     @Published var isBorrowedSuccess: Bool = false
     @Published var isAdded: Bool = false
+    @Published var isNotExist: Bool = false
+    @Published var isErrorSave: Bool = false
     
     @Published var student: Student?
     @Published var isSheetLoading: Bool = false
@@ -66,6 +68,8 @@ class BookViewModel: ObservableObject {
                        let reviewAverageDouble = Double(reviewAverageString) {
                         // 小数点を切り捨てて整数化
                         reviewAverageInt = Int(reviewAverageDouble)
+                    } else {
+                        book = await FirebaseClient().getBookDetail(isbn: isbn)
                     }
                     isLoading = true
                     
@@ -96,6 +100,8 @@ class BookViewModel: ObservableObject {
                    let reviewAverageDouble = Double(reviewAverageString) {
                     // 小数点を切り捨てて整数化
                     reviewAverageInt = Int(reviewAverageDouble)
+                } else {
+                    isNotExist = true
                 }
                 isLoading = true
             } else {
@@ -121,10 +127,6 @@ class BookViewModel: ObservableObject {
     func borrowReturnBook(isbn: String, email: String, isBorrowing: Bool) async {
         do {
             if isBorrowing {
-                // 本を返す処理
-                try await FirebaseClient().returnBook(isbn: isbn, email: email)
-                self.isReturnSuccess = true
-            } else {
                 // 本を借りているか確認
                 let isAlreadyBorrowed = await checkBorrowStatus(isbn: isbn, email: email)
                 if isAlreadyBorrowed {
@@ -134,6 +136,10 @@ class BookViewModel: ObservableObject {
                     try await FirebaseClient().borrowBook(isbn: isbn, email: email)
                     self.isBorrowedSuccess = true
                 }
+            } else {
+                // 本を返す処理
+                try await FirebaseClient().returnBook(isbn: isbn, email: email)
+                self.isReturnSuccess = true
             }
         } catch {
             print("An error occurred: \(error.localizedDescription)")
@@ -144,15 +150,19 @@ class BookViewModel: ObservableObject {
     func saveBook() async -> Bool {
         guard let book = book else {
             print("本の情報を取得できませんでした")
+            isErrorSave = true
             return false
         }
         
         let saveBookResult = await FirebaseClient().saveFirestore(book: book)
         
         if saveBookResult {
+            isErrorSave = false
             return true
         } else {
+            isErrorSave = true
             return false
         }
     }
+    
 }

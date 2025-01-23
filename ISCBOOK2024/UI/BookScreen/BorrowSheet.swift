@@ -99,7 +99,7 @@ struct BorrowSheet: View {
                             .frame(width: 370, height: 60)
                             .foregroundColor(bookViewModel.isSheetLoading ? .blue : .gray)
                             .shadow(radius: 8)
-                        Text(isBorrowing ? "本を返す" : "本を借りる")
+                        Text(isBorrowing ? "本を借りる" : "本を返す")
                             .foregroundColor(.white)
                             .bold()
                     }

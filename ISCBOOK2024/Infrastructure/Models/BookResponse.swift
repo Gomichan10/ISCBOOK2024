@@ -27,4 +27,23 @@ struct BookInfo: Codable {
     let reviewAverage: String
     let reviewCount: Int
     let isbn: String
+    
+    init?(title: String, author: String, publisherName: String, itemPrice: Int, salesDate: String, itemCaption: String, itemUrl: String, largeImageUrl: String, reviewAverage: String, reviewCount: Int, isbn: String) {
+        
+        guard !title.isEmpty, !author.isEmpty, !isbn.isEmpty else {
+            return nil
+        }
+        
+        self.title = title
+        self.author = author
+        self.publisherName = publisherName
+        self.itemPrice = itemPrice
+        self.salesDate = salesDate
+        self.itemCaption = itemCaption
+        self.itemUrl = itemUrl
+        self.largeImageUrl = largeImageUrl
+        self.reviewAverage = reviewAverage
+        self.reviewCount = reviewCount
+        self.isbn = isbn
+    }
 }

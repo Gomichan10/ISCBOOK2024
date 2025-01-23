@@ -36,13 +36,15 @@ struct StartView: View {
             .navigationDestination(for: Destination.self) { destination in
                 switch destination {
                 case .lending:
-                    CameraView(isBorrowing: false, path: $path)
-                case .returning:
                     CameraView(isBorrowing: true, path: $path)
+                case .returning:
+                    CameraView(isBorrowing: false, path: $path)
                 case .bookView(let code, let isBorrowing):
                     BookView(scannedCode: code, isBorrowing: isBorrowing, path: $path)
                 case .addBookView(code: let code):
                     AddBookView(scannedCode: code, path: $path)
+                case .addBookManualView(code: let code):
+                    AddBookManualView(scannedCode: code, path: $path)
                 }
             }
         }
