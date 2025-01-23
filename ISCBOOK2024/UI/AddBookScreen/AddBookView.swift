@@ -45,6 +45,22 @@ struct AddBookView: View {
         } message: {
             Text("違う本を追加してください")
         }
+        .alert("正常に本が保存できませんでした", isPresented: $bookViewModel.isErrorSave) {
+            Button("OK") {
+                return
+            }
+        } message: {
+            Text("もう一度試してください")
+        }
+        .alert("この本の情報は取得できません",isPresented: $bookViewModel.isNotExist) {
+            Button("OK") {
+                if let code = scannedCode {
+                    path.append(Destination.addBookManualView(code: code))
+                }
+            }
+        } message: {
+            Text("手動で本を追加できる画面に遷移します")
+        }
     }
 }
 

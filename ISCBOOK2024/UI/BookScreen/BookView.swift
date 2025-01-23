@@ -58,14 +58,14 @@ struct BookView: View {
                 path.removeLast(path.count)
             }
         } message: {
-            Text("この本は現在貸し出し中になっています。返却を行なってください。")
+            Text("この本は現在貸し出し中になっていません。貸し出しを行なってください。")
         }
         .alert("貸し出し処理が完了しました", isPresented: $bookViewModel.isBorrowedSuccess) {
             Button("OK") {
                 path.removeLast(path.count)
             }
         } message: {
-            Text("返却期限までに返却してください。")
+            Text("返却期限は\(returnDate())です。返却期限までに返却してください。")
         }
         .alert("返却処理が完了しました", isPresented: $bookViewModel.isReturnSuccess) {
             Button("OK") {
@@ -313,6 +313,14 @@ extension BookView {
         .background(.white)
         .shadow(radius: 10)
         .ignoresSafeArea()
+    }
+    
+    private func returnDate() -> String{
+        let modifiedDate = Calendar.current.date(byAdding: .month, value: 1, to: Date()) ?? Date()
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateStyle = .long
+        dateFormatter.locale = Locale(identifier: "ja_JP")
+        return dateFormatter.string(from: modifiedDate)
     }
 }
 

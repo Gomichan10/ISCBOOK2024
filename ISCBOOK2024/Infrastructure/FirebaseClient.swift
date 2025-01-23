@@ -23,7 +23,7 @@ class FirebaseClient {
         }
     }
     
-    // Firestore に新しい本の情報を保存する関数
+    // Firestoreに新しい本の情報を保存する関数
     func saveFirestore(book: BookResponse) async -> Bool {
         let bookInfo = book.Items.first?.Item
         
@@ -107,7 +107,7 @@ class FirebaseClient {
                 let validLendList = lendList.filter { !$0.isEmpty }
                 
                 // 借りる場合
-                if !isBorrowing {
+                if isBorrowing {
                     if validLendList.count >= book.count {
                         return .notAvailableBorrow // 借りれない状態
                     } else {
@@ -116,7 +116,7 @@ class FirebaseClient {
                 }
                 
                 // 返却する場合
-                if isBorrowing {
+                if !isBorrowing {
                     if validLendList.isEmpty {
                         return .notAvailableReturn //返せない状態
                     } else {
@@ -136,12 +136,12 @@ class FirebaseClient {
         do {
             let snapshot = try await db.collection("Book").whereField("isbn", isEqualTo: isbn).getDocuments()
             
-            guard let documet = snapshot.documents.first else {
+            guard let document = snapshot.documents.first else {
                 print("Book not found for ISBN: \(isbn)")
                 return false
             }
             
-            let book = try documet.data(as: BookFirestore.self)
+            let book = try document.data(as: BookFirestore.self)
             
             if let lendList = book.lend, lendList.contains(email) {
                 return true
@@ -152,5 +152,41 @@ class FirebaseClient {
             print("An error occurred while checking the lend list: \(error.localizedDescription)")
             return false
         }
+    }
+    
+    // ISBNから本の情報を返す関数
+    func getBookDetail(isbn: String) async -> BookResponse? {
+        do {
+            let snapshot = try await db.collection("Book").whereField("isbn", isEqualTo: isbn).getDocuments()
+            
+            guard let document = snapshot.documents.first else {
+                print("Book not found for ISBN: \(isbn)")
+                return nil
+            }
+            
+            if let book = try? document.data(as: BookFirestore.self),
+               let bookInfo = BookInfo(
+                title: book.title ?? "タイトルがありません",
+                author: book.author ?? "著者不明",
+                publisherName: "",
+                itemPrice: 0,
+                salesDate: "",
+                itemCaption: book.detail ?? "説明がありません",
+                itemUrl: "",
+                largeImageUrl: "",
+                reviewAverage: "",
+                reviewCount: 0,
+                isbn: book.isbn ?? "ISBN情報なし"
+               ) {
+                let bookItems = BookItems(Item: bookInfo)
+                let bookResponse = BookResponse(Items: [bookItems])
+                return bookResponse
+            }
+        } catch {
+            print("An error occurred while fetching the book details for ISBN \(isbn): \(error.localizedDescription)")
+            return nil
+        }
+        
+        return nil
     }
 }

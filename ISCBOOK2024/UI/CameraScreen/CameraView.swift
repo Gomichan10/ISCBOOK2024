@@ -20,8 +20,8 @@ struct CameraView: View {
                 .ignoresSafeArea()
                 .onChange(of: scannedCode) {
                     if let code = scannedCode, code.starts(with: "978")  {
-                        // appendBookPath(code: code)
-                        appendAddBookPath(code: code)
+                        appendBookPath(code: code)
+                        // appendAddBookPath(code: code)
                     }
                 }
             CameraOverlay(path: $path)
